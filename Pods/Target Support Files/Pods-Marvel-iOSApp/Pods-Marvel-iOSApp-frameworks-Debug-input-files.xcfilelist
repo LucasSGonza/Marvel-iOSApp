@@ -1,0 +1,4 @@
+${PODS_ROOT}/Target Support Files/Pods-Marvel-iOSApp/Pods-Marvel-iOSApp-frameworks.sh
+${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework
+${BUILT_PRODUCTS_DIR}/RxAlamofire/RxAlamofire.framework
+${BUILT_PRODUCTS_DIR}/RxSwift/RxSwift.framework
