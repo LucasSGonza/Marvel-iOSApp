@@ -17,9 +17,15 @@
 		D93841F22B2A37E2002370AD /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D93841F02B2A37E2002370AD /* LaunchScreen.storyboard */; };
 		D93841FD2B2A37E3002370AD /* Marvel_iOSAppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D93841FC2B2A37E3002370AD /* Marvel_iOSAppTests.swift */; };
 		D93842082B2A37E3002370AD /* Marvel_iOSAppUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D93842072B2A37E3002370AD /* Marvel_iOSAppUITests.swift */; };
+		D949C26B2B2B75F000939E64 /* FavoriteScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D949C26A2B2B75F000939E64 /* FavoriteScreenViewController.swift */; };
+		D949C2732B2B75FA00939E64 /* FavoriteScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D949C2722B2B75FA00939E64 /* FavoriteScreen.storyboard */; };
+		D949C2792B2B78FE00939E64 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D949C2782B2B78FE00939E64 /* TabBarController.swift */; };
 		D967BFB02B2A3F2F0087FFE9 /* Dashboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D967BFAF2B2A3F2F0087FFE9 /* Dashboard.storyboard */; };
 		D967BFBE2B2A42020087FFE9 /* Color.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D967BFBD2B2A42020087FFE9 /* Color.xcassets */; };
 		D967BFC72B2A42600087FFE9 /* APIRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = D967BFC62B2A42600087FFE9 /* APIRepository.swift */; };
+		D98819DA2B2B9289000DE971 /* CollectionViewCellHeroCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D98819D82B2B9289000DE971 /* CollectionViewCellHeroCell.swift */; };
+		D98819DB2B2B9289000DE971 /* CollectionViewCellHeroCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D98819D92B2B9289000DE971 /* CollectionViewCellHeroCell.xib */; };
+		D98819E32B2B955B000DE971 /* Hero.swift in Sources */ = {isa = PBXBuildFile; fileRef = D98819E22B2B955B000DE971 /* Hero.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -61,9 +67,15 @@
 		D93842032B2A37E3002370AD /* Marvel-iOSAppUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Marvel-iOSAppUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D93842072B2A37E3002370AD /* Marvel_iOSAppUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Marvel_iOSAppUITests.swift; sourceTree = "<group>"; };
 		D93842092B2A37E3002370AD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D949C26A2B2B75F000939E64 /* FavoriteScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteScreenViewController.swift; sourceTree = "<group>"; };
+		D949C2722B2B75FA00939E64 /* FavoriteScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = FavoriteScreen.storyboard; sourceTree = "<group>"; };
+		D949C2782B2B78FE00939E64 /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		D967BFAF2B2A3F2F0087FFE9 /* Dashboard.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Dashboard.storyboard; sourceTree = "<group>"; };
 		D967BFBD2B2A42020087FFE9 /* Color.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Color.xcassets; sourceTree = "<group>"; };
 		D967BFC62B2A42600087FFE9 /* APIRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIRepository.swift; sourceTree = "<group>"; };
+		D98819D82B2B9289000DE971 /* CollectionViewCellHeroCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewCellHeroCell.swift; sourceTree = "<group>"; };
+		D98819D92B2B9289000DE971 /* CollectionViewCellHeroCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CollectionViewCellHeroCell.xib; sourceTree = "<group>"; };
+		D98819E22B2B955B000DE971 /* Hero.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Hero.swift; sourceTree = "<group>"; };
 		F143C0BD6920551FA630EB57 /* Pods_Marvel_iOSAppTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Marvel_iOSAppTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -171,6 +183,23 @@
 			path = "Marvel-iOSAppUITests";
 			sourceTree = "<group>";
 		};
+		D949C2692B2B75CB00939E64 /* FavoriteScreen */ = {
+			isa = PBXGroup;
+			children = (
+				D949C26A2B2B75F000939E64 /* FavoriteScreenViewController.swift */,
+				D949C2722B2B75FA00939E64 /* FavoriteScreen.storyboard */,
+			);
+			path = FavoriteScreen;
+			sourceTree = "<group>";
+		};
+		D949C2772B2B78E600939E64 /* UITabBarController */ = {
+			isa = PBXGroup;
+			children = (
+				D949C2782B2B78FE00939E64 /* TabBarController.swift */,
+			);
+			path = UITabBarController;
+			sourceTree = "<group>";
+		};
 		D967BFA62B2A3DF90087FFE9 /* Delegate */ = {
 			isa = PBXGroup;
 			children = (
@@ -183,6 +212,8 @@
 		D967BFAD2B2A3F0C0087FFE9 /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				D949C2772B2B78E600939E64 /* UITabBarController */,
+				D949C2692B2B75CB00939E64 /* FavoriteScreen */,
 				D967BFAE2B2A3F130087FFE9 /* Dashboard */,
 			);
 			path = Modules;
@@ -200,6 +231,7 @@
 		D967BFBA2B2A41CD0087FFE9 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				D98819E22B2B955B000DE971 /* Hero.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -217,6 +249,7 @@
 		D967BFBC2B2A41ED0087FFE9 /* Extension */ = {
 			isa = PBXGroup;
 			children = (
+				D98819D62B2B9228000DE971 /* UICollectionViewCell */,
 				D967BFC52B2A424D0087FFE9 /* API */,
 			);
 			path = Extension;
@@ -228,6 +261,23 @@
 				D967BFC62B2A42600087FFE9 /* APIRepository.swift */,
 			);
 			path = API;
+			sourceTree = "<group>";
+		};
+		D98819D62B2B9228000DE971 /* UICollectionViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				D98819D72B2B9257000DE971 /* HeroCell */,
+			);
+			path = UICollectionViewCell;
+			sourceTree = "<group>";
+		};
+		D98819D72B2B9257000DE971 /* HeroCell */ = {
+			isa = PBXGroup;
+			children = (
+				D98819D82B2B9289000DE971 /* CollectionViewCellHeroCell.swift */,
+				D98819D92B2B9289000DE971 /* CollectionViewCellHeroCell.xib */,
+			);
+			path = HeroCell;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -341,6 +391,8 @@
 				D93841F22B2A37E2002370AD /* LaunchScreen.storyboard in Resources */,
 				D967BFBE2B2A42020087FFE9 /* Color.xcassets in Resources */,
 				D967BFB02B2A3F2F0087FFE9 /* Dashboard.storyboard in Resources */,
+				D949C2732B2B75FA00939E64 /* FavoriteScreen.storyboard in Resources */,
+				D98819DB2B2B9289000DE971 /* CollectionViewCellHeroCell.xib in Resources */,
 				D93841EF2B2A37E2002370AD /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -469,10 +521,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D98819DA2B2B9289000DE971 /* CollectionViewCellHeroCell.swift in Sources */,
 				D967BFC72B2A42600087FFE9 /* APIRepository.swift in Sources */,
 				D93841EA2B2A37E0002370AD /* DashboardViewController.swift in Sources */,
+				D949C26B2B2B75F000939E64 /* FavoriteScreenViewController.swift in Sources */,
+				D949C2792B2B78FE00939E64 /* TabBarController.swift in Sources */,
 				D93841E62B2A37E0002370AD /* AppDelegate.swift in Sources */,
 				D93841E82B2A37E0002370AD /* SceneDelegate.swift in Sources */,
+				D98819E32B2B955B000DE971 /* Hero.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -12,4 +12,10 @@ import RxSwift
 
 class APIRepository {
     
+    var url: String = "https://gateway.marvel.com/v1/public"
+    
+    func getAllCharacters() {
+        
+    }
+    
 }

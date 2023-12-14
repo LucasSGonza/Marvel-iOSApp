@@ -10,11 +10,43 @@ import UIKit
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
-
-
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
+//         Override point for customization after application launch.
+        
+//        let window = UIWindow(frame: UIScreen.main.bounds)
+//        window.makeKeyAndVisible()
+//        window.rootViewController = UINavigationController(rootViewController: UIViewController(nibName: "Dashboard", bundle: nil))
+        
+//        setupNavigationBar()
         return true
+    }
+    
+    func setupNavigationBar() {
+        if #available(iOS 15.0, *) {
+            let appearance = UINavigationBarAppearance()
+
+            appearance.configureWithOpaqueBackground()
+            appearance.backgroundColor = UIColor(named: "backgroundColor")
+
+            UINavigationBar.appearance().standardAppearance = appearance
+            UINavigationBar.appearance().scrollEdgeAppearance = appearance
+            UINavigationBar.appearance().compactAppearance = appearance
+        } else {
+            let navigationBarAppearance = UINavigationBar.appearance()
+
+            navigationBarAppearance.titleTextAttributes = [
+                NSAttributedString.Key.foregroundColor: UIColor.white,
+                NSAttributedString.Key.font : UIFont.systemFont(ofSize: 15.0)
+            ]
+            
+            navigationBarAppearance.tintColor = UIColor(named: "backgroundColor")
+            navigationBarAppearance.barTintColor = UIColor(named: "backgroundColor")
+            navigationBarAppearance.isTranslucent = true
+
+//            let barButtonAppearance = UIBarButtonItem.appearance()
+//            barButtonAppearance.setBackButtonTitlePositionAdjustment(UIOffset(horizontal: -1000.0, vertical: 0), for: .default)
+//            barButtonAppearance.tintColor = .white
+        }
     }
 
     // MARK: UISceneSession Lifecycle
