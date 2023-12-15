@@ -12,11 +12,17 @@ class DashboardViewController: UIViewController {
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var searchBar: UISearchBar!
     
+    private var apiRequest = APIRequest()
     private var heroesArray: [Hero] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setupSearchBar()
+        getDataFromAPI()
+    }
+    
+    private func getDataFromAPI(){
+        apiRequest.getAllCharacters()
     }
     
     private func setupCollectionView() {
