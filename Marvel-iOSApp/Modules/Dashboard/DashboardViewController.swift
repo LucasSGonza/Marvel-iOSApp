@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import RxSwift
 
 class DashboardViewController: UIViewController {
     
@@ -14,6 +15,7 @@ class DashboardViewController: UIViewController {
     
     private var apiRequest = APIRequest()
     private var heroesArray: [Hero] = []
+    private let disposeBag = DisposeBag()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -22,8 +24,20 @@ class DashboardViewController: UIViewController {
     }
     
     private func getDataFromAPI(){
-        apiRequest.getAllCharacters()
+        apiRequest.getResponseFromAPI()
     }
+    
+//    private func getDataFromAPI() {
+//        apiRequest.getAllCharacters()?
+//            .subscribeOn(ConcurrentDispatchQueueScheduler(qos: .userInitiated))
+//            .observeOn(MainScheduler.instance)
+//            .subscribe(onSuccess: { hero in
+//                print("ESTOU AQUI \(hero.data.results.first?.name)")
+//            }, onError: { error in
+//                print(error)
+//            })
+//            .disposed(by: disposeBag)
+//    }
     
     private func setupCollectionView() {
         collectionView.delegate = self

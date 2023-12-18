@@ -21,7 +21,7 @@ class CollectionViewCellHeroCell: UICollectionViewCell {
     
     func bind(hero: Hero) {
         self.hero = hero
-        self.heroName.text = hero.data.result[0].name
+//        self.heroName.text = hero.data.results[0].name
     }
 
 }

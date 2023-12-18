@@ -12,7 +12,7 @@ class Hero: Decodable {
     var data: Result
     
     struct Result: Decodable {
-        var result: [HeroInformation]
+        var results: [HeroInformation]
     }
     
     struct HeroInformation: Decodable {
