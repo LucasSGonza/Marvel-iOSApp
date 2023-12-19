@@ -51,8 +51,8 @@ class TabBarController: UITabBarController {
     
 }
 
-extension TabBarController {
-    override func tabBar(_ tabBar: UITabBar, didSelect item: UITabBarItem) {
-        print("Selected: \(item.title!)")
-    }
-}
+//extension TabBarController {
+//    override func tabBar(_ tabBar: UITabBar, didSelect item: UITabBarItem) {
+//        print("Selected: \(item.title!)")
+//    }
+//}

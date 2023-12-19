@@ -8,6 +8,7 @@ target 'Marvel-iOSApp' do
   pod 'Alamofire'
   pod 'RxAlamofire', '~> 5.1.0'
   pod 'RxSwift'
+  pod 'Kingfisher'
   
   # Pods for Marvel-iOSApp
 

@@ -1,36 +1,23 @@
 //
-//  Character.swift
+//  Hero.swift
 //  Marvel-iOSApp
 //
-//  Created by Squad Apps on 14/12/23.
+//  Created by Squad Apps on 19/12/23.
 //
 
 import UIKit
 
-class Hero: Decodable {
+class Hero {
+    var id: Int
+    var name: String
+    var description: String
+    var img: String
     
-    var data: Result
-    
-    struct Result: Decodable {
-        var results: [HeroInformation]
-    }
-    
-    struct HeroInformation: Decodable {
-        var id: Int
-        var name: String
-        var description: String
-        var thumbnail: HeroImage
-    }
-    
-    struct HeroImage: Decodable {
-        var path: String
-        var extension_: String
-        
-        enum CodingKeys: String, CodingKey {
-            case path = "path"
-            case extension_ = "extension"
-        }
-        
+    init(id: Int, name: String, description: String, img: String) {
+        self.id = id
+        self.name = name
+        self.description = description
+        self.img = img
     }
     
 }

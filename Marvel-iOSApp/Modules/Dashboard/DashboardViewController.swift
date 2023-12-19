@@ -19,12 +19,34 @@ class DashboardViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupSearchBar()
         getDataFromAPI()
+        setupSearchBar()
+        setupCollectionView()
     }
     
-    private func getDataFromAPI(){
-        apiRequest.getResponseFromAPI()
+    private func getDataFromAPI() {
+        //max 100 heroes por requisição
+        //se nao passar limite ele vai por padrão 20
+        apiRequest.getAllCharacters(numberOfHeroesToSearch: 100)
+            .subscribeOn(ConcurrentDispatchQueueScheduler(qos: .userInitiated))
+            .observeOn(MainScheduler.instance)
+            .subscribe(onNext: { hero in
+//                print(hero)
+                hero.data.results.forEach {
+                    let imgUrl = ($0.thumbnail.path + "." + $0.thumbnail.extension_).replacingOccurrences(of: "http", with: "https")
+                    
+                    let hero: Hero = Hero(id: $0.id, name: $0.name, description: $0.description, img: imgUrl)
+                    self.heroesArray.append(hero)
+                }
+                self.collectionView.reloadData()
+            }, onError: { erro in
+                print(erro)
+            }, onCompleted: {
+                print("terminou")
+            }, onDisposed: {
+                print("saiu da memoria")
+            })
+            .disposed(by: disposeBag)
     }
     
 //    private func getDataFromAPI() {
@@ -42,9 +64,10 @@ class DashboardViewController: UIViewController {
     private func setupCollectionView() {
         collectionView.delegate = self
         collectionView.dataSource = self
+        collectionView.register(UINib(nibName: "CollectionViewCellHeroCell", bundle: nil), forCellWithReuseIdentifier: "HeroCell")
     }
     
-    private func setupSearchBar(){
+    private func setupSearchBar() {
         searchBar.searchTextField.font = .systemFont(ofSize: 13.0)
     }
 
@@ -57,7 +80,8 @@ extension DashboardViewController: UICollectionViewDelegate, UICollectionViewDat
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "HeroCell", for: indexPath)
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "HeroCell", for: indexPath) as! CollectionViewCellHeroCell
+        cell.bind(hero: heroesArray[indexPath.row])
         return cell
     }
     
@@ -66,8 +90,8 @@ extension DashboardViewController: UICollectionViewDelegate, UICollectionViewDat
 extension DashboardViewController: UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let width = (collectionView.frame.width) / 3.0
-        return CGSize(width: width, height: 100)
+        let width = (collectionView.frame.width - 40) / 2.0
+        return CGSize(width: width, height: 140)
     }
     
 }
