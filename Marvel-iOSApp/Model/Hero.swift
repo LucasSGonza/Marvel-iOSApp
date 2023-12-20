@@ -12,6 +12,7 @@ class Hero {
     var name: String
     var description: String
     var img: String
+    var isFavorite: Bool = false
     
     init(id: Int, name: String, description: String, img: String) {
         self.id = id

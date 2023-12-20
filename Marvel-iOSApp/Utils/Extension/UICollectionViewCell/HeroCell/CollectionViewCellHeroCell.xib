@@ -4,39 +4,64 @@
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" restorationIdentifier="HeroCell" reuseIdentifier="HeroCell" id="gTV-IL-0wX" customClass="CollectionViewCellHeroCell" customModule="Marvel_iOSApp" customModuleProvider="target">
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" restorationIdentifier="HeroCell" reuseIdentifier="CollectionHeroCell" id="gTV-IL-0wX" customClass="CollectionViewCellHeroCell" customModule="Marvel_iOSApp" customModuleProvider="target">
             <rect key="frame" x="0.0" y="0.0" width="185" height="170"/>
             <autoresizingMask key="autoresizingMask"/>
             <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                 <rect key="frame" x="0.0" y="0.0" width="185" height="170"/>
                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 <subviews>
-                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fD6-aw-sLK" userLabel="Content View">
+                    <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fD6-aw-sLK" userLabel="Content View">
                         <rect key="frame" x="0.0" y="0.0" width="185" height="170"/>
                         <subviews>
-                            <imageView opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalCompressionResistancePriority="749" image="defaultHeroImg" translatesAutoresizingMaskIntoConstraints="NO" id="idC-oi-kwu">
-                                <rect key="frame" x="20" y="10" width="145" height="128"/>
-                            </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Character name" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SZ6-43-z9h">
-                                <rect key="frame" x="5" y="148" width="175" height="12"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="10"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <nil key="highlightedColor"/>
-                            </label>
+                            <view opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pbz-D2-nOd">
+                                <rect key="frame" x="0.0" y="0.0" width="185" height="140"/>
+                                <subviews>
+                                    <imageView opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalCompressionResistancePriority="749" image="defaultHeroImg" translatesAutoresizingMaskIntoConstraints="NO" id="idC-oi-kwu">
+                                        <rect key="frame" x="0.0" y="0.0" width="185" height="140"/>
+                                    </imageView>
+                                </subviews>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="bottom" secondItem="idC-oi-kwu" secondAttribute="bottom" id="80j-SQ-dXd"/>
+                                    <constraint firstItem="idC-oi-kwu" firstAttribute="top" secondItem="pbz-D2-nOd" secondAttribute="top" id="Jjl-Zk-UyR"/>
+                                    <constraint firstAttribute="trailing" secondItem="idC-oi-kwu" secondAttribute="trailing" id="dFn-bb-5VE"/>
+                                    <constraint firstItem="idC-oi-kwu" firstAttribute="leading" secondItem="pbz-D2-nOd" secondAttribute="leading" id="uU2-x0-WWx"/>
+                                </constraints>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Az9-Fi-TOp">
+                                <rect key="frame" x="0.0" y="140" width="185" height="30"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Character name" lineBreakMode="tailTruncation" baselineAdjustment="none" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SZ6-43-z9h">
+                                        <rect key="frame" x="5" y="7.5" width="170" height="13.5"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="11"/>
+                                        <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="SZ6-43-z9h" secondAttribute="trailing" constant="10" id="7xS-yo-ZTi"/>
+                                    <constraint firstAttribute="bottom" secondItem="SZ6-43-z9h" secondAttribute="bottom" constant="9" id="NBe-Jo-seu"/>
+                                    <constraint firstAttribute="height" constant="30" id="gB2-bq-bVK"/>
+                                    <constraint firstItem="SZ6-43-z9h" firstAttribute="leading" secondItem="Az9-Fi-TOp" secondAttribute="leading" constant="5" id="qha-Bp-73p"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <constraints>
-                            <constraint firstAttribute="trailing" secondItem="idC-oi-kwu" secondAttribute="trailing" constant="20" id="3MT-iK-ZX8"/>
-                            <constraint firstAttribute="bottom" secondItem="SZ6-43-z9h" secondAttribute="bottom" constant="10" id="98c-fV-sgL"/>
-                            <constraint firstItem="SZ6-43-z9h" firstAttribute="top" secondItem="idC-oi-kwu" secondAttribute="bottom" constant="10" id="Emp-ur-ndy"/>
-                            <constraint firstAttribute="trailing" secondItem="SZ6-43-z9h" secondAttribute="trailing" constant="5" id="PqA-G8-puz"/>
-                            <constraint firstItem="SZ6-43-z9h" firstAttribute="leading" secondItem="fD6-aw-sLK" secondAttribute="leading" constant="5" id="afT-sY-hDf"/>
-                            <constraint firstItem="idC-oi-kwu" firstAttribute="leading" secondItem="fD6-aw-sLK" secondAttribute="leading" constant="20" id="bJg-Da-Gwi"/>
-                            <constraint firstItem="idC-oi-kwu" firstAttribute="top" secondItem="fD6-aw-sLK" secondAttribute="top" constant="10" id="iwF-Dz-J2k"/>
+                            <constraint firstItem="pbz-D2-nOd" firstAttribute="leading" secondItem="fD6-aw-sLK" secondAttribute="leading" id="2WC-ZN-ZI9"/>
+                            <constraint firstItem="Az9-Fi-TOp" firstAttribute="leading" secondItem="fD6-aw-sLK" secondAttribute="leading" id="4cr-5G-2XA"/>
+                            <constraint firstAttribute="trailing" secondItem="Az9-Fi-TOp" secondAttribute="trailing" id="BgQ-i2-GrM"/>
+                            <constraint firstAttribute="bottom" secondItem="Az9-Fi-TOp" secondAttribute="bottom" id="FhY-Do-uyG"/>
+                            <constraint firstAttribute="trailing" secondItem="pbz-D2-nOd" secondAttribute="trailing" id="N5S-Eb-HZK"/>
+                            <constraint firstItem="Az9-Fi-TOp" firstAttribute="top" secondItem="pbz-D2-nOd" secondAttribute="bottom" id="RXb-sN-OFW"/>
+                            <constraint firstItem="pbz-D2-nOd" firstAttribute="top" secondItem="fD6-aw-sLK" secondAttribute="top" id="i2f-dY-ru5"/>
                         </constraints>
                     </view>
                 </subviews>
@@ -52,11 +77,15 @@
             <connections>
                 <outlet property="heroImg" destination="idC-oi-kwu" id="Jkz-na-r5E"/>
                 <outlet property="heroName" destination="SZ6-43-z9h" id="Mho-Ap-LK6"/>
+                <outlet property="viewForHeroImg" destination="pbz-D2-nOd" id="A1N-PD-dny"/>
             </connections>
             <point key="canvasLocation" x="145.6521739130435" y="103.79464285714285"/>
         </collectionViewCell>
     </objects>
     <resources>
         <image name="defaultHeroImg" width="633" height="537"/>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
     </resources>
 </document>

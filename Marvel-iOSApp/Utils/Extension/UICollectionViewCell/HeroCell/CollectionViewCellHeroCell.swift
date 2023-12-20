@@ -10,6 +10,7 @@ import Kingfisher
 
 class CollectionViewCellHeroCell: UICollectionViewCell {
     
+    @IBOutlet weak var viewForHeroImg: UIView!
     @IBOutlet weak var heroImg: UIImageView!
     @IBOutlet weak var heroName: UILabel!
     
@@ -22,11 +23,15 @@ class CollectionViewCellHeroCell: UICollectionViewCell {
     }
     
     private func setupVisual() {
-        heroImg.layer.cornerRadius = 45
-        heroImg.layer.borderColor = UIColor.white.cgColor
-        heroImg.layer.borderWidth = 2.0
-        self.backgroundColor = UIColor(named: "backgroundColorForCell")
-        self.layer.cornerRadius = 8
+//        viewForHeroImg.backgroundColor = UIColor(named: "backgroundColorForCell")
+        self.backgroundColor = UIColor(named: "backgroundColor")
+        self.layer.masksToBounds = true //to apply shadow, false
+        self.layer.cornerRadius = 10
+        
+//        self.layer.shadowRadius = 3
+//        self.layer.shadowColor = UIColor.white.cgColor
+//        self.layer.shadowOpacity = 0.4
+//        self.layer.shadowOffset = CGSize(width: 0, height: 1)
     }
     
     func bind(hero: Hero) {

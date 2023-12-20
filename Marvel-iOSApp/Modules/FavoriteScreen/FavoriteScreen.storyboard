@@ -3,6 +3,7 @@
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -19,17 +20,25 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Bac-5W-lB8" userLabel="Content View">
                                 <rect key="frame" x="0.0" y="44" width="414" height="818"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Favoritos" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="x25-Kc-tLD">
-                                        <rect key="frame" x="172.5" y="398.5" width="69" height="21"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
+                                    <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="3l2-vv-tmt">
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="56"/>
+                                        <color key="backgroundColor" name="backgroundColor"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                    </searchBar>
+                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="3BB-42-po7">
+                                        <rect key="frame" x="0.0" y="76" width="414" height="742"/>
+                                        <color key="backgroundColor" name="backgroundColor"/>
+                                    </tableView>
                                 </subviews>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <color key="backgroundColor" name="backgroundColor"/>
                                 <constraints>
-                                    <constraint firstItem="x25-Kc-tLD" firstAttribute="centerX" secondItem="Bac-5W-lB8" secondAttribute="centerX" id="6tZ-Na-qeB"/>
-                                    <constraint firstItem="x25-Kc-tLD" firstAttribute="centerY" secondItem="Bac-5W-lB8" secondAttribute="centerY" id="Cva-fF-uTD"/>
+                                    <constraint firstItem="3BB-42-po7" firstAttribute="leading" secondItem="Bac-5W-lB8" secondAttribute="leading" id="23O-Pi-Q9s"/>
+                                    <constraint firstAttribute="trailing" secondItem="3BB-42-po7" secondAttribute="trailing" id="HZU-7h-GHj"/>
+                                    <constraint firstAttribute="bottom" secondItem="3BB-42-po7" secondAttribute="bottom" id="KfA-NR-8BS"/>
+                                    <constraint firstItem="3l2-vv-tmt" firstAttribute="top" secondItem="Bac-5W-lB8" secondAttribute="top" id="Wwf-wk-MxV"/>
+                                    <constraint firstAttribute="trailing" secondItem="3l2-vv-tmt" secondAttribute="trailing" id="a2R-1c-cVv"/>
+                                    <constraint firstItem="3l2-vv-tmt" firstAttribute="leading" secondItem="Bac-5W-lB8" secondAttribute="leading" id="h1D-dX-9Tj"/>
+                                    <constraint firstItem="3BB-42-po7" firstAttribute="top" secondItem="3l2-vv-tmt" secondAttribute="bottom" constant="20" id="spk-ai-coV"/>
                                 </constraints>
                             </view>
                         </subviews>
@@ -42,13 +51,20 @@
                             <constraint firstItem="gAp-O3-VQv" firstAttribute="bottom" secondItem="Bac-5W-lB8" secondAttribute="bottom" id="uOv-Is-KOm"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="searchBar" destination="3l2-vv-tmt" id="JFj-0P-VGh"/>
+                        <outlet property="tableView" destination="3BB-42-po7" id="EFJ-QW-Ctb"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ZC6-Y6-r4W" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="152" y="72"/>
+            <point key="canvasLocation" x="150.72463768115944" y="71.651785714285708"/>
         </scene>
     </scenes>
     <resources>
+        <namedColor name="backgroundColor">
+            <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
