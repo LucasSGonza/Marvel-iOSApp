@@ -39,7 +39,7 @@
                                 <rect key="frame" x="0.0" y="140" width="185" height="30"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Character name" lineBreakMode="tailTruncation" baselineAdjustment="none" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SZ6-43-z9h">
-                                        <rect key="frame" x="5" y="7.5" width="170" height="13.5"/>
+                                        <rect key="frame" x="5" y="9.5" width="170" height="13.5"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="11"/>
                                         <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
@@ -48,7 +48,7 @@
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="trailing" secondItem="SZ6-43-z9h" secondAttribute="trailing" constant="10" id="7xS-yo-ZTi"/>
-                                    <constraint firstAttribute="bottom" secondItem="SZ6-43-z9h" secondAttribute="bottom" constant="9" id="NBe-Jo-seu"/>
+                                    <constraint firstAttribute="bottom" secondItem="SZ6-43-z9h" secondAttribute="bottom" constant="7" id="NBe-Jo-seu"/>
                                     <constraint firstAttribute="height" constant="30" id="gB2-bq-bVK"/>
                                     <constraint firstItem="SZ6-43-z9h" firstAttribute="leading" secondItem="Az9-Fi-TOp" secondAttribute="leading" constant="5" id="qha-Bp-73p"/>
                                 </constraints>

@@ -8,17 +8,20 @@
 import UIKit
 
 class Hero {
+    
     var id: Int
     var name: String
     var description: String
     var img: String
+    var comicsAvailables: Int
     var isFavorite: Bool = false
     
-    init(id: Int, name: String, description: String, img: String) {
+    init(id: Int, name: String, description: String, img: String, comicsAvailables: Int) {
         self.id = id
         self.name = name
         self.description = description
         self.img = img
+        self.comicsAvailables = comicsAvailables
     }
     
 }

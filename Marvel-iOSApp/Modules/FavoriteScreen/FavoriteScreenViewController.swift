@@ -14,6 +14,7 @@ class FavoriteScreenViewController: UIViewController {
     
     private var heroesArray: [Hero] = []
     private var customHeroesArray: [Hero] = []
+    private weak var  delegate: TabBarDelegate?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -22,6 +23,11 @@ class FavoriteScreenViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         print(heroesArray.first?.name ?? "nada")
+    }
+    
+    func initView(heroesArray: [Hero], delegate: TabBarDelegate) {
+        self.heroesArray = heroesArray
+        self.delegate = delegate
     }
     
     private func startAllSetupFunctions() {
@@ -57,9 +63,13 @@ extension FavoriteScreenViewController: UITableViewDelegate, UITableViewDataSour
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "HeroCell", for: indexPath) as! TableViewCellHeroCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "TableHeroCell", for: indexPath) as! TableViewCellHeroCell
         cell.bind(hero: customHeroesArray[indexPath.row])
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return (tableView.frame.width / 2)
     }
     
 }
@@ -83,15 +93,15 @@ extension FavoriteScreenViewController: UISearchBarDelegate {
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         searchBar.showsCancelButton = false
-        searchBar.text = ""
-        setupCustomHeroesArrayToDefault()
-        tableView.reloadData()
+//        searchBar.text = ""
+//        setupCustomHeroesArrayToDefault()
+//        tableView.reloadData()
         self.view.endEditing(true)
     }
     
 }
 
-extension FavoriteScreenViewController: FavoriteListDelegate {
+extension FavoriteScreenViewController: FavoriteScreenDelegate {
     func setHeroesArray(_ heroesArray: [Hero]) {
         self.heroesArray = heroesArray
     }

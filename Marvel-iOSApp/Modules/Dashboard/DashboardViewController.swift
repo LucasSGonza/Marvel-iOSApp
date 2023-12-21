@@ -13,16 +13,27 @@ class DashboardViewController: UIViewController {
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var searchBar: UISearchBar!
     
-    private var delegate: FavoriteListDelegate?
     private var apiRequest = APIRequest()
+    
     private var heroesArray: [Hero] = []
     private var customHeroesArray: [Hero] = []
+    private weak var delegateTabBar: TabBarDelegate?
+    
     private let disposeBag = DisposeBag()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         getDataFromAPI()
         startAllSetupFunctions()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        print(heroesArray.first?.isFavorite ?? "nao favoritado")
+    }
+    
+    func initView(heroesArray: [Hero], delegate: TabBarDelegate) {
+        self.heroesArray = heroesArray
+        self.delegateTabBar = delegate
     }
     
     private func startAllSetupFunctions() {
@@ -33,27 +44,23 @@ class DashboardViewController: UIViewController {
     private func getDataFromAPI() {
         //max 100 heroes por requisição
         //se nao passar limite ele vai por padrão 20
+        //ADICIONAR PARAMETRO 'offset' (procura a partir de um num)
         apiRequest.getAllCharacters(numberOfHeroesToSearch: 100)
             .subscribeOn(ConcurrentDispatchQueueScheduler(qos: .userInitiated))
             .observeOn(MainScheduler.instance)
-            .subscribe(onNext: { hero in
-//                print(hero)
-                hero.data.results.forEach {
+            .subscribe(onSuccess: { response in
+    //          print(hero)
+                response.data.results.forEach {
                     let imgUrl = ($0.thumbnail.path + "." + $0.thumbnail.extension_).replacingOccurrences(of: "http", with: "https")
                     
-                    let hero: Hero = Hero(id: $0.id, name: $0.name, description: $0.description, img: imgUrl)
+                    let hero: Hero = Hero(id: $0.id, name: $0.name, description: $0.description, img: imgUrl, comicsAvailables: $0.comics.available)
                     self.heroesArray.append(hero)
                 }
                 self.setupCustomHeroesArrayToDefault()
-                //passar info pra favoriteScreen
-                self.delegate?.setHeroesArray(self.heroesArray)
+                self.delegateTabBar?.setHeroesArray(self.heroesArray)
                 self.collectionView.reloadData()
-            }, onError: { erro in
-                print(erro)
-            }, onCompleted: {
-                print("terminou")
-            }, onDisposed: {
-                print("saiu da memoria")
+            }, onError: { error in
+                print(error)
             })
             .disposed(by: disposeBag)
     }
@@ -109,9 +116,9 @@ extension DashboardViewController: UISearchBarDelegate {
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         searchBar.showsCancelButton = false
-        searchBar.text = ""
-        setupCustomHeroesArrayToDefault()
-        collectionView.reloadData()
+//        searchBar.text = ""
+//        setupCustomHeroesArrayToDefault()
+//        collectionView.reloadData()
         self.view.endEditing(true)
     }
         
@@ -127,6 +134,12 @@ extension DashboardViewController: UICollectionViewDelegate, UICollectionViewDat
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CollectionHeroCell", for: indexPath) as! CollectionViewCellHeroCell
         cell.bind(hero: customHeroesArray[indexPath.row])
         return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let singleHeroVC = UIStoryboard(name: "SingleHero", bundle: nil).instantiateViewController(withIdentifier: "SingleHero") as! SingleHeroViewController
+        singleHeroVC.initView(heroesArray: customHeroesArray, heroID: customHeroesArray[indexPath.row].id)
+        navigationController?.pushViewController(singleHeroVC, animated: true)
     }
     
 }

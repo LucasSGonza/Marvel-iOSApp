@@ -30,13 +30,15 @@ class APIRequest {
         return RxAlamofire.request(.get, url, parameters: nil, encoding: JSONEncoding.default, headers: nil)
     }
     
-    func getAllCharacters(numberOfHeroesToSearch: Int) -> Observable<Data> {
+    //usando Single<> ao inves de Observable pq Singles tbm é um emissor, mas so tem 2 metodos: onSucess e onError
+    func getAllCharacters(numberOfHeroesToSearch: Int) -> Single<Data> {
         return validateResponseFromAPI(limit: numberOfHeroesToSearch)
             .responseData()
-            .flatMap({ response -> Observable<Data> in
+            .flatMap({ response -> Single<Data> in
                 let data = try JSONDecoder().decode(Data.self, from: response.1)
-                return Observable.just(data)
+                return Single.just(data)
             })
+            .asSingle()
     }
     
 //    func getAllCharacters2() -> Single<Hero>? {

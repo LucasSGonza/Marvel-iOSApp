@@ -20,6 +20,7 @@ class Data: Decodable {
         var name: String
         var description: String
         var thumbnail: HeroImage
+        var comics: Comics
     }
     
     struct HeroImage: Decodable {
@@ -31,6 +32,10 @@ class Data: Decodable {
             case extension_ = "extension"
         }
         
+    }
+    
+    struct Comics: Decodable {
+        var available: Int
     }
     
 }
