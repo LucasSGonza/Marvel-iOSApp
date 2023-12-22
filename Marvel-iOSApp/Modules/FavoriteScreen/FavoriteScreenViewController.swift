@@ -14,7 +14,6 @@ class FavoriteScreenViewController: UIViewController {
     
     private var heroesArray: [Hero] = []
     private var customHeroesArray: [Hero] = []
-    private weak var  delegate: TabBarDelegate?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -22,12 +21,8 @@ class FavoriteScreenViewController: UIViewController {
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        print(heroesArray.first?.name ?? "nada")
-    }
-    
-    func initView(heroesArray: [Hero], delegate: TabBarDelegate) {
-        self.heroesArray = heroesArray
-        self.delegate = delegate
+        setupCustomHeroesArrayToDefault()
+        tableView.reloadData()
     }
     
     private func startAllSetupFunctions() {
@@ -93,9 +88,9 @@ extension FavoriteScreenViewController: UISearchBarDelegate {
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         searchBar.showsCancelButton = false
-//        searchBar.text = ""
-//        setupCustomHeroesArrayToDefault()
-//        tableView.reloadData()
+        searchBar.text = ""
+        setupCustomHeroesArrayToDefault()
+        tableView.reloadData()
         self.view.endEditing(true)
     }
     

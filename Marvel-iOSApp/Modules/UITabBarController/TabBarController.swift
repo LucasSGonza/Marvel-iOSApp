@@ -12,7 +12,10 @@ import UIKit
 class TabBarController: UITabBarController {
     
     private var heroesArray: [Hero] = []
+    
+    //referencia das outras telas
     private weak var delegateFavorite: FavoriteScreenDelegate?
+//    private weak var delegateDashboard: DashboardDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,11 +36,12 @@ class TabBarController: UITabBarController {
         
         //cria as ViewControllers que irão para a tabBar
         let dashboardVC = UIStoryboard(name: "Dashboard", bundle: nil).instantiateViewController(withIdentifier: "Dashboard") as! DashboardViewController
-        dashboardVC.initView(heroesArray: self.heroesArray, delegate: self)
+        dashboardVC.initView(delegate: self) //envia a referencia da tabBar pra dashboard
+//        delegateDashboard = dashboardVC //recebe a referencia da dashboard
         
         let favoriteScreenVC = UIStoryboard(name: "FavoriteScreen", bundle: nil).instantiateViewController(withIdentifier: "FavoriteScreen") as! FavoriteScreenViewController
-        favoriteScreenVC.initView(heroesArray: self.heroesArray, delegate: self)
-        delegateFavorite = favoriteScreenVC
+//        favoriteScreenVC.initView(delegate: self)//envia a referencia da tabBar pra favorite Screen
+        delegateFavorite = favoriteScreenVC //recebe a referencia da favorite Screen
         
         //cria uma navigation para cada viewController
         let dashboard = self.createNav(title: "Dashboard", image: UIImage(systemName: "house.fill"), vc: dashboardVC)
@@ -61,26 +65,18 @@ class TabBarController: UITabBarController {
 extension TabBarController {
     
     override func tabBar(_ tabBar: UITabBar, didSelect item: UITabBarItem) {
-        
         switch item.title {
-        case "Dashboard":
-            print("Dashboard")
         case "Favorite's Heroes":
-            delegateFavorite?.setHeroesArray(self.heroesArray.filter{ $0.isFavorite })
+            delegateFavorite?.setHeroesArray(self.heroesArray.filter({$0.isFavorite}))
         default:
             break
         }
-        
     }
     
 }
 
 //MARK: Delegate
 extension TabBarController: TabBarDelegate {
-    func returnToDashboard() {
-        self.navigationController?.popToRootViewController(animated: true)
-    }
-    
     func setHeroesArray(_ heroesArray: [Hero]) {
         self.heroesArray = heroesArray
     }

@@ -9,10 +9,14 @@ import Foundation
 
 protocol TabBarDelegate: AnyObject {
     func setHeroesArray(_ heroesArray: [Hero])
-    func returnToDashboard()
 }
 
 protocol FavoriteScreenDelegate: AnyObject {
     func setHeroesArray(_ heroesArray: [Hero])
-    func initView(heroesArray: [Hero], delegate: TabBarDelegate)
 }
+
+//Dashboard nao precisa ter delegate, visto que as unicas alterações na Array são feitas diretamente no heroi que é passado para a SingleHeroScreen, este que já tem como referencia de memoria a array da dashboard, por isso que as alterações acontecem
+
+//protocol DashboardDelegate: AnyObject {
+//    func setHeroesArray(_ heroesArray: [Hero])
+//}

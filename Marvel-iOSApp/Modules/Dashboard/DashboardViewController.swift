@@ -17,6 +17,8 @@ class DashboardViewController: UIViewController {
     
     private var heroesArray: [Hero] = []
     private var customHeroesArray: [Hero] = []
+    
+    //referencia da tabBar --> para enviar a array populada
     private weak var delegateTabBar: TabBarDelegate?
     
     private let disposeBag = DisposeBag()
@@ -27,12 +29,8 @@ class DashboardViewController: UIViewController {
         startAllSetupFunctions()
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        print(heroesArray.first?.isFavorite ?? "nao favoritado")
-    }
-    
-    func initView(heroesArray: [Hero], delegate: TabBarDelegate) {
-        self.heroesArray = heroesArray
+    //removi a array
+    func initView(delegate: TabBarDelegate) {
         self.delegateTabBar = delegate
     }
     
@@ -45,11 +43,11 @@ class DashboardViewController: UIViewController {
         //max 100 heroes por requisição
         //se nao passar limite ele vai por padrão 20
         //ADICIONAR PARAMETRO 'offset' (procura a partir de um num)
+        
         apiRequest.getAllCharacters(numberOfHeroesToSearch: 100)
             .subscribeOn(ConcurrentDispatchQueueScheduler(qos: .userInitiated))
             .observeOn(MainScheduler.instance)
             .subscribe(onSuccess: { response in
-    //          print(hero)
                 response.data.results.forEach {
                     let imgUrl = ($0.thumbnail.path + "." + $0.thumbnail.extension_).replacingOccurrences(of: "http", with: "https")
                     
@@ -116,9 +114,9 @@ extension DashboardViewController: UISearchBarDelegate {
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         searchBar.showsCancelButton = false
-//        searchBar.text = ""
-//        setupCustomHeroesArrayToDefault()
-//        collectionView.reloadData()
+        searchBar.text = ""
+        setupCustomHeroesArrayToDefault()
+        collectionView.reloadData()
         self.view.endEditing(true)
     }
         
@@ -138,7 +136,7 @@ extension DashboardViewController: UICollectionViewDelegate, UICollectionViewDat
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let singleHeroVC = UIStoryboard(name: "SingleHero", bundle: nil).instantiateViewController(withIdentifier: "SingleHero") as! SingleHeroViewController
-        singleHeroVC.initView(heroesArray: customHeroesArray, heroID: customHeroesArray[indexPath.row].id)
+        singleHeroVC.initView(hero: customHeroesArray[indexPath.row])
         navigationController?.pushViewController(singleHeroVC, animated: true)
     }
     
@@ -152,4 +150,3 @@ extension DashboardViewController: UICollectionViewDelegateFlowLayout {
     }
     
 }
-
