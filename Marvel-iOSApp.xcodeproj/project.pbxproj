@@ -27,6 +27,7 @@
 		D98819DA2B2B9289000DE971 /* CollectionViewCellHeroCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D98819D82B2B9289000DE971 /* CollectionViewCellHeroCell.swift */; };
 		D98819DB2B2B9289000DE971 /* CollectionViewCellHeroCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D98819D92B2B9289000DE971 /* CollectionViewCellHeroCell.xib */; };
 		D98819E32B2B955B000DE971 /* Data.swift in Sources */ = {isa = PBXBuildFile; fileRef = D98819E22B2B955B000DE971 /* Data.swift */; };
+		D9AC5B322B3B490600AC8F1D /* HelperController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9AC5B312B3B490600AC8F1D /* HelperController.swift */; };
 		D9D4523A2B336CEF007F7341 /* TableViewCellHeroCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9D452382B336CEF007F7341 /* TableViewCellHeroCell.swift */; };
 		D9D4523B2B336CEF007F7341 /* TableViewCellHeroCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D9D452392B336CEF007F7341 /* TableViewCellHeroCell.xib */; };
 		D9FA0E912B34B33F00700EE9 /* SingleHeroViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9FA0E902B34B33F00700EE9 /* SingleHeroViewController.swift */; };
@@ -83,6 +84,7 @@
 		D98819D82B2B9289000DE971 /* CollectionViewCellHeroCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewCellHeroCell.swift; sourceTree = "<group>"; };
 		D98819D92B2B9289000DE971 /* CollectionViewCellHeroCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CollectionViewCellHeroCell.xib; sourceTree = "<group>"; };
 		D98819E22B2B955B000DE971 /* Data.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Data.swift; sourceTree = "<group>"; };
+		D9AC5B312B3B490600AC8F1D /* HelperController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelperController.swift; sourceTree = "<group>"; };
 		D9D452382B336CEF007F7341 /* TableViewCellHeroCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewCellHeroCell.swift; sourceTree = "<group>"; };
 		D9D452392B336CEF007F7341 /* TableViewCellHeroCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TableViewCellHeroCell.xib; sourceTree = "<group>"; };
 		D9FA0E902B34B33F00700EE9 /* SingleHeroViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleHeroViewController.swift; sourceTree = "<group>"; };
@@ -263,6 +265,7 @@
 		D967BFBC2B2A41ED0087FFE9 /* Extension */ = {
 			isa = PBXGroup;
 			children = (
+				D9AC5B302B3B48DF00AC8F1D /* UIViewController */,
 				D9FF65E32B337E0700FA9483 /* Protocols */,
 				D9D4522B2B336C9F007F7341 /* UITableViewCell */,
 				D98819D62B2B9228000DE971 /* UICollectionViewCell */,
@@ -294,6 +297,14 @@
 				D98819D92B2B9289000DE971 /* CollectionViewCellHeroCell.xib */,
 			);
 			path = HeroCell;
+			sourceTree = "<group>";
+		};
+		D9AC5B302B3B48DF00AC8F1D /* UIViewController */ = {
+			isa = PBXGroup;
+			children = (
+				D9AC5B312B3B490600AC8F1D /* HelperController.swift */,
+			);
+			path = UIViewController;
 			sourceTree = "<group>";
 		};
 		D9D4522B2B336C9F007F7341 /* UITableViewCell */ = {
@@ -580,6 +591,7 @@
 				D93841EA2B2A37E0002370AD /* DashboardViewController.swift in Sources */,
 				D949C26B2B2B75F000939E64 /* FavoriteScreenViewController.swift in Sources */,
 				D949C2792B2B78FE00939E64 /* TabBarController.swift in Sources */,
+				D9AC5B322B3B490600AC8F1D /* HelperController.swift in Sources */,
 				D93841E62B2A37E0002370AD /* AppDelegate.swift in Sources */,
 				D9FA0E912B34B33F00700EE9 /* SingleHeroViewController.swift in Sources */,
 				D93841E82B2A37E0002370AD /* SceneDelegate.swift in Sources */,

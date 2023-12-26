@@ -20,27 +20,38 @@ class TableViewCellHeroCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        setupVisual()
-        // Initialization code
+        favoriteHero()
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-
         // Configure the view for the selected state
     }
     
-    private func setupVisual() {
-        
-    }
-    
     func bind(hero: Hero) {
+        favoriteImageView.image = UIImage(systemName: "bookmark.fill")
         self.hero = hero
         heroName.text = hero.name
         let url = URL(string: hero.img)
         heroImg.kf.setImage(with: url)
-        heroDescription.text = !hero.description.isEmpty ? hero.description : "No description available"
+        heroDescription.text = hero.description.isEmpty ? hero.description : "No description available"
         heroComicsAvailable.text = "Comics available: \(hero.comicsAvailables)"
+    }
+    
+    private func favoriteHero() {
+        favoriteImageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(addFavorite)))
+    }
+    
+    @objc private func addFavorite() {
+        if let hero = hero {
+            if hero.isFavorite {
+                favoriteImageView.image = UIImage(systemName: "bookmark")
+                hero.isFavorite = false
+            } else {
+                favoriteImageView.image = UIImage(systemName: "bookmark.fill")
+                hero.isFavorite = true
+            }
+        }
     }
     
 }

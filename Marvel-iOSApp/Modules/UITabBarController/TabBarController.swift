@@ -15,7 +15,6 @@ class TabBarController: UITabBarController {
     
     //referencia das outras telas
     private weak var delegateFavorite: FavoriteScreenDelegate?
-//    private weak var delegateDashboard: DashboardDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -37,10 +36,9 @@ class TabBarController: UITabBarController {
         //cria as ViewControllers que irão para a tabBar
         let dashboardVC = UIStoryboard(name: "Dashboard", bundle: nil).instantiateViewController(withIdentifier: "Dashboard") as! DashboardViewController
         dashboardVC.initView(delegate: self) //envia a referencia da tabBar pra dashboard
-//        delegateDashboard = dashboardVC //recebe a referencia da dashboard
         
         let favoriteScreenVC = UIStoryboard(name: "FavoriteScreen", bundle: nil).instantiateViewController(withIdentifier: "FavoriteScreen") as! FavoriteScreenViewController
-//        favoriteScreenVC.initView(delegate: self)//envia a referencia da tabBar pra favorite Screen
+        
         delegateFavorite = favoriteScreenVC //recebe a referencia da favorite Screen
         
         //cria uma navigation para cada viewController
@@ -63,16 +61,11 @@ class TabBarController: UITabBarController {
 }
 
 extension TabBarController {
-    
     override func tabBar(_ tabBar: UITabBar, didSelect item: UITabBarItem) {
-        switch item.title {
-        case "Favorite's Heroes":
-            delegateFavorite?.setHeroesArray(self.heroesArray.filter({$0.isFavorite}))
-        default:
-            break
+        if item.title == "Favorite's Heroes" {
+            delegateFavorite?.setHeroesArray(heroesArray) //envia a array para a FavoriteScreen -> somente la faz o filtro
         }
     }
-    
 }
 
 //MARK: Delegate

@@ -7,7 +7,7 @@
 
 import UIKit
 
-class FavoriteScreenViewController: UIViewController {
+class FavoriteScreenViewController: HelperController {
     
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var tableView: UITableView!
@@ -26,6 +26,7 @@ class FavoriteScreenViewController: UIViewController {
     }
     
     private func startAllSetupFunctions() {
+        setupLoadingAlert()
         setupTableView()
         setupSearchBar()
         setupCustomHeroesArrayToDefault()
@@ -46,7 +47,7 @@ class FavoriteScreenViewController: UIViewController {
     
     private func setupCustomHeroesArrayToDefault() {
         customHeroesArray.removeAll()
-        customHeroesArray.append(contentsOf: heroesArray)
+        customHeroesArray.append(contentsOf: heroesArray.filter{$0.isFavorite})
     }
     
 }
@@ -65,6 +66,12 @@ extension FavoriteScreenViewController: UITableViewDelegate, UITableViewDataSour
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return (tableView.frame.width / 2)
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let singleHeroVC = UIStoryboard(name: "SingleHero", bundle: nil).instantiateViewController(withIdentifier: "SingleHero") as! SingleHeroViewController
+        singleHeroVC.initView(hero: customHeroesArray[indexPath.row])
+        navigationController?.pushViewController(singleHeroVC, animated: true)
     }
     
 }

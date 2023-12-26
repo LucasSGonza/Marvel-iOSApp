@@ -20,19 +20,20 @@ class APIRequest {
     let publicKey: String = "d45266d7de590f0008fb57ac7c925be6"
     let privateKey: String = "39c52df0c1a74c0b4e5d635057241a8d09ed23da"
     
-    func validateResponseFromAPI(limit: Int) -> Observable<DataRequest> {
+    //esses parametros, que tbm estao presentes no 'getAllCharacters', são para chegar na VC e definir o limit e offset da req --> para ajudar na paginação
+    func validateResponseFromAPI(limit: Int, offset: Int) -> Observable<DataRequest> {
         let timestamp = Int(Date().timeIntervalSince1970)
         let hashData = "\(timestamp)\(privateKey)\(publicKey)".data(using: .utf8)!
         let hash = Insecure.MD5.hash(data: hashData).map{String(format: "%02hhx", $0)}.joined()
         
-        let url = baseUrl +  "/characters?ts=\(timestamp)&apikey=\(publicKey)&hash=\(hash)&limit=\(limit)"
+        let url = baseUrl +  "/characters?ts=\(timestamp)&apikey=\(publicKey)&hash=\(hash)&limit=\(limit)&offset=\(offset)"
         
         return RxAlamofire.request(.get, url, parameters: nil, encoding: JSONEncoding.default, headers: nil)
     }
     
     //usando Single<> ao inves de Observable pq Singles tbm é um emissor, mas so tem 2 metodos: onSucess e onError
-    func getAllCharacters(numberOfHeroesToSearch: Int) -> Single<Data> {
-        return validateResponseFromAPI(limit: numberOfHeroesToSearch)
+    func getAllCharacters(heroesToSearch: Int, heroesToSkip: Int) -> Single<Data> {
+        return validateResponseFromAPI(limit: heroesToSearch, offset: heroesToSkip)
             .responseData()
             .flatMap({ response -> Single<Data> in
                 let data = try JSONDecoder().decode(Data.self, from: response.1)

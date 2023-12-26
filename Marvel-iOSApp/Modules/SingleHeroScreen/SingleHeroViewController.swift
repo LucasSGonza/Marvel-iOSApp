@@ -25,6 +25,11 @@ class SingleHeroViewController: UIViewController {
         setupNavBar()
     }
     
+    //para retirar a tela especifica do heroi quando trocar de tela, pela tabBar, por exemplo
+    override func viewDidDisappear(_ animated: Bool) {
+        self.navigationController?.popViewController(animated: true)
+    }
+    
     //está igualando a referencia ao espaço de memoria na qual esse hero está na array da dashboard
     func initView(hero: Hero) {
         self.hero = hero
