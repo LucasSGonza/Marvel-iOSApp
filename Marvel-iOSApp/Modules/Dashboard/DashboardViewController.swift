@@ -20,9 +20,12 @@ class DashboardViewController: HelperController {
     private var currentPage = 0
     
     private var apiRequest = APIRequest()
-    private var limit = 100
-    private var offset = 0
-    private var total = 1563
+    
+    private let offsets = [0, 100, 200, 300, 400, 500, 600, 700, 800, 900, 1000, 1100, 1200, 1300, 1400, 1500]
+//    private var dictionaryForPageAndOffset: [Int : Int] = [:]
+//    private var limit = 100
+//    private var offset = 0
+//    private var total = 1563
 
     private var heroesArray: [Hero] = []
     private var customHeroesArray: [Hero] = []
@@ -34,7 +37,7 @@ class DashboardViewController: HelperController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        getDataFromAPI(offset: offset)
+        getDataFromAPI()
         startAllSetupFunctions()
     }
     
@@ -51,45 +54,39 @@ class DashboardViewController: HelperController {
         updatePageControl()
     }
     
-    private func getDataFromAPI(offset: Int) {
-        //max 100 heroes por requisição
-        //se nao passar limite ele vai por padrão 20
-        //ADICIONAR PARAMETRO 'offset' (procura a partir de um num)
+    private func getDataFromAPI() {
         
-        if self.offset < self.total {
-            showLoadingAlert()
-            
-            customHeroesArray.removeAll()
-            
-            apiRequest.getAllCharacters(heroesToSearch: limit, heroesToSkip: offset)
-                .subscribeOn(ConcurrentDispatchQueueScheduler(qos: .userInitiated))
-                .observeOn(MainScheduler.instance)
-                .subscribe(onSuccess: { response in
-                    response.data.results.forEach {
-                        let imgUrl = ($0.thumbnail.path + "." + $0.thumbnail.extension_).replacingOccurrences(of: "http", with: "https")
-                        
-                        let hero: Hero = Hero(id: $0.id, name: $0.name, description: $0.description, img: imgUrl, comicsAvailables: $0.comics.available)
-                        self.heroesArray.append(hero)
-                        self.customHeroesArray.append(hero)
-                    }
-                    
-//                    self.offset = self.limit + self.offset
-                    
-//                    self.setupCustomHeroesArrayToDefault()
-                    
-                    //envia a referencia do objeto que sera manipulado para a TabBar
-                    self.delegateTabBar?.setHeroesArray(self.heroesArray)
-                    
-                    self.collectionView.reloadData()
-                    self.dismissLoadingAlert()
-                }, onError: { error in
-                    print(error)
-                })
-                .disposed(by: disposeBag) //evitar memory leak --> liberar recurso
-        }
+        showLoadingAlert()
         
+        Observable.from(offsets)
+            .flatMap { offset -> Observable<Data> in
+                return self.apiRequest.createEventForTheRequisition(heroesToSearch: 100, heroesToSkip: offset)
+                    .asObservable()
+            }
+            .subscribeOn(ConcurrentDispatchQueueScheduler(qos: .userInitiated))
+            .observeOn(MainScheduler.instance)
+            .subscribe(onNext: { response in
+                let offset = response.data.offset
+                response.data.results.forEach {
+                    //create a obj Hero
+                    let imgUrl = ($0.thumbnail.path + "." + $0.thumbnail.extension_).replacingOccurrences(of: "http", with: "https")
+
+                    let hero: Hero = Hero(id: $0.id, name: $0.name, description: $0.description, img: imgUrl, comicsAvailables: $0.comics.available, reqOffset: offset)
+                    self.heroesArray.append(hero)
+                }
+            }, onError: { error in
+                print("Error: \(error)")
+            }, onCompleted: {
+                //envia a referencia do objeto que sera manipulado para a TabBar
+                self.delegateTabBar?.setHeroesArray(self.heroesArray)
+                self.heroesArray = self.heroesArray.sorted { $0.name < $1.name }
+                self.setupCustomHeroesArrayToDefault()
+                self.collectionView.reloadData()
+                self.dismissLoadingAlert()
+            })
+            .disposed(by: disposeBag) //evitar memory leak --> liberar recurso
     }
-    
+
 //    private func getDataFromAPI() {
 //        apiRequest.getAllCharacters()?
 //            .subscribeOn(ConcurrentDispatchQueueScheduler(qos: .userInitiated))
@@ -115,10 +112,10 @@ class DashboardViewController: HelperController {
         searchBar.keyboardType = .default
     }
     
-//    private func setupCustomHeroesArrayToDefault() {
-//        customHeroesArray.removeAll()
-//        customHeroesArray.append(contentsOf: heroesArray)
-//    }
+    private func setupCustomHeroesArrayToDefault() {
+        customHeroesArray.removeAll()
+        customHeroesArray.append(contentsOf: heroesArray)
+    }
 
     private func updatePageControl() {
         if currentPage == 0 {
@@ -136,8 +133,8 @@ class DashboardViewController: HelperController {
         if currentPage < pageControl.numberOfPages {
             currentPage += 1
             updatePageControl()
-            self.offset = self.limit + self.offset
-            getDataFromAPI(offset: self.offset)
+//            self.offset = self.limit + self.offset
+//            getDataFromAPI(offset: self.offset)
         }
     }
     
@@ -145,8 +142,8 @@ class DashboardViewController: HelperController {
         if currentPage > 0 {
             currentPage -= 1
             updatePageControl()
-            self.offset = self.offset - limit
-            getDataFromAPI(offset: self.offset)
+//            self.offset = self.offset - limit
+//            getDataFromAPI(offset: self.offset)
         }
     }
     

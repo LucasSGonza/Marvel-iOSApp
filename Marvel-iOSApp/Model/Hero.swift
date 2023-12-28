@@ -9,6 +9,7 @@ import UIKit
 
 class Hero {
     
+    var reqOffset: Int
     var id: Int
     var name: String
     var description: String
@@ -16,12 +17,13 @@ class Hero {
     var comicsAvailables: Int
     var isFavorite: Bool = false
     
-    init(id: Int, name: String, description: String, img: String, comicsAvailables: Int) {
+    init(id: Int, name: String, description: String, img: String, comicsAvailables: Int, reqOffset: Int) {
         self.id = id
         self.name = name
         self.description = description
         self.img = img
         self.comicsAvailables = comicsAvailables
+        self.reqOffset = reqOffset
     }
     
 }

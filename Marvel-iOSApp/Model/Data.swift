@@ -13,6 +13,7 @@ class Data: Decodable {
     
     struct Result: Decodable {
         var results: [HeroInformation]
+        var offset: Int
     }
     
     struct HeroInformation: Decodable {
