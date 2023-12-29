@@ -21,11 +21,13 @@ class DashboardViewController: HelperController {
     
     private var apiRequest = APIRequest()
     
-    private let offsets = [0, 100, 200, 300, 400, 500, 600, 700, 800, 900, 1000, 1100, 1200, 1300, 1400, 1500]
+//    private let offsets = [0, 100, 200, 300, 400, 500, 600, 700, 800, 900, 1000, 1100, 1200, 1300, 1400, 1500]
+    
+    private var offsetsArray: [Int] = []
+    private var offset: Int = 0
+    private var total: Int = 0
+    
 //    private var dictionaryForPageAndOffset: [Int : Int] = [:]
-//    private var limit = 100
-//    private var offset = 0
-//    private var total = 1563
 
     private var heroesArray: [Hero] = []
     private var customHeroesArray: [Hero] = []
@@ -50,28 +52,51 @@ class DashboardViewController: HelperController {
         setupSearchBar()
         setupCollectionView()
         setupLoadingAlert()
-        pageControl.numberOfPages = 16 //1563 heroes total, vem 100 por req ...
+        
+        pageControl.numberOfPages = 16 //1563 heroes total, vem 100 por req ... !MUDAR ISSO PRA SE TORNAR DINÂMICO
+        
         updatePageControl()
     }
     
     private func getDataFromAPI() {
         
         showLoadingAlert()
-        
-        Observable.from(offsets)
-            .flatMap { offset -> Observable<Data> in
-                return self.apiRequest.createEventForTheRequisition(heroesToSearch: 100, heroesToSkip: offset)
-                    .asObservable()
+       
+        apiRequest.createEventForTheRequisition(heroesToSkip: 0)
+            .flatMap { result -> Observable<Data> in
+                
+                /*
+                 1° pegar o total e construir os offsets necessários para pegar todos os heroes
+                 2º criar uma array com esses offsets, para utilizar o Observable.from()
+                 3° retornar esse Obsersable no flatMap
+                 */
+                
+                self.total = result.data.total
+                let requestsToDo = Double(self.total / 100) //1563 / 100 =~ 15
+                print("Requests to do: \(requestsToDo)")
+                
+//                for _ in 0..<requestsToDo {
+//                    self.offsetsArray.append(self.offset)
+//                    self.offset += 100
+//                    print(self.offset)
+//                }
+                print("Count da array: \(self.offsetsArray.count)")
+                
+                return Observable.from(self.offsetsArray)
+                    .flatMap { offset -> Observable<Data> in
+                        return self.apiRequest.createEventForTheRequisition(heroesToSearch: 100, heroesToSkip: offset)
+                            .asObservable()
+                    }
             }
             .subscribeOn(ConcurrentDispatchQueueScheduler(qos: .userInitiated))
             .observeOn(MainScheduler.instance)
             .subscribe(onNext: { response in
-                let offset = response.data.offset
+                print("Count: \(response.data.count)")
                 response.data.results.forEach {
                     //create a obj Hero
                     let imgUrl = ($0.thumbnail.path + "." + $0.thumbnail.extension_).replacingOccurrences(of: "http", with: "https")
 
-                    let hero: Hero = Hero(id: $0.id, name: $0.name, description: $0.description, img: imgUrl, comicsAvailables: $0.comics.available, reqOffset: offset)
+                    let hero: Hero = Hero(id: $0.id, name: $0.name, description: $0.description, img: imgUrl, comicsAvailables: $0.comics.available, reqOffset: self.offset)
                     self.heroesArray.append(hero)
                 }
             }, onError: { error in
@@ -85,6 +110,34 @@ class DashboardViewController: HelperController {
                 self.dismissLoadingAlert()
             })
             .disposed(by: disposeBag) //evitar memory leak --> liberar recurso
+        
+//        Observable.from(offsets)
+//            .flatMap { offset -> Observable<Data> in
+//                return self.apiRequest.createEventForTheRequisition(heroesToSearch: 100, heroesToSkip: offset)
+//                    .asObservable()
+//            }
+//            .subscribeOn(ConcurrentDispatchQueueScheduler(qos: .userInitiated))
+//            .observeOn(MainScheduler.instance)
+//            .subscribe(onNext: { response in
+//                let offset = response.data.offset
+//                response.data.results.forEach {
+//                    //create a obj Hero
+//                    let imgUrl = ($0.thumbnail.path + "." + $0.thumbnail.extension_).replacingOccurrences(of: "http", with: "https")
+//
+//                    let hero: Hero = Hero(id: $0.id, name: $0.name, description: $0.description, img: imgUrl, comicsAvailables: $0.comics.available, reqOffset: offset)
+//                    self.heroesArray.append(hero)
+//                }
+//            }, onError: { error in
+//                print("Error: \(error)")
+//            }, onCompleted: {
+//                //envia a referencia do objeto que sera manipulado para a TabBar
+//                self.delegateTabBar?.setHeroesArray(self.heroesArray)
+//                self.heroesArray = self.heroesArray.sorted { $0.name < $1.name }
+//                self.setupCustomHeroesArrayToDefault()
+//                self.collectionView.reloadData()
+//                self.dismissLoadingAlert()
+//            })
+//            .disposed(by: disposeBag) //evitar memory leak --> liberar recurso
     }
 
 //    private func getDataFromAPI() {

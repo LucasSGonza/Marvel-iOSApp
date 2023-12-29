@@ -19,6 +19,7 @@ class APIRequest {
     let baseUrl: String = "https://gateway.marvel.com/v1/public"
     let publicKey: String = "d45266d7de590f0008fb57ac7c925be6"
     let privateKey: String = "39c52df0c1a74c0b4e5d635057241a8d09ed23da"
+    let apiLimit: Int = 100
     
     //esses parametros, que tbm estao presentes no 'getAllCharacters', são para chegar na VC e definir o limit e offset da req --> para ajudar na paginação
     func validateRequestToAPI(limit: Int, offset: Int) -> Observable<DataRequest> {
@@ -32,14 +33,14 @@ class APIRequest {
     }
     
     //usando Single<> ao inves de Observable pq Singles tbm é um emissor, mas so tem 2 metodos: onSucess e onError
-    func createEventForTheRequisition(heroesToSearch: Int, heroesToSkip: Int) -> Single<Data> {
+    func createEventForTheRequisition(heroesToSearch: Int = 100, heroesToSkip: Int) -> Observable<Data> {
         return validateRequestToAPI(limit: heroesToSearch, offset: heroesToSkip)
             .responseData()
             .flatMap({ response -> Single<Data> in
                 let data = try JSONDecoder().decode(Data.self, from: response.1)
                 return Single.just(data)
             })
-            .asSingle()
+//            .asSingle()
     }
     
 //    func getAllCharacters2() -> Single<Hero>? {
