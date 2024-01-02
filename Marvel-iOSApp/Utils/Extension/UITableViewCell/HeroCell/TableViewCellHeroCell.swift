@@ -34,7 +34,7 @@ class TableViewCellHeroCell: UITableViewCell {
         heroName.text = hero.name
         let url = URL(string: hero.img)
         heroImg.kf.setImage(with: url)
-        heroDescription.text = hero.description.isEmpty ? hero.description : "No description available"
+        heroDescription.text = !hero.description.isEmpty ? hero.description : "No description available"
         heroComicsAvailable.text = "Comics available: \(hero.comicsAvailables)"
     }
     

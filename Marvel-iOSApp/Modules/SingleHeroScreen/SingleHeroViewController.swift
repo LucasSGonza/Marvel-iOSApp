@@ -12,6 +12,11 @@ class SingleHeroViewController: UIViewController {
     @IBOutlet weak var heroName: UILabel!
     @IBOutlet weak var heroImg: UIImageView!
     @IBOutlet weak var heroDescription: UILabel!
+    @IBOutlet weak var heroComics: UILabel!
+    @IBOutlet weak var heroSeries: UILabel!
+    @IBOutlet weak var heroStories: UILabel!
+    @IBOutlet weak var heroEvents: UILabel!
+    
     @IBOutlet weak var viewForHeroImg: UIView!
     @IBOutlet weak var viewForInfos: UIView!
     @IBOutlet weak var favoriteImageView: UIImageView!
@@ -50,6 +55,10 @@ class SingleHeroViewController: UIViewController {
             let urlImg = URL(string: hero.img)
             heroImg.kf.setImage(with: urlImg)
             heroDescription.text = !hero.description.isEmpty ? hero.description : "No description available"
+            heroComics.text = "Comics availables: \(hero.comicsAvailables ?? 0)"
+            heroSeries.text = "Series availables: \(hero.comicsAvailables ?? 0)"
+            heroStories.text = "Stories availables: \(hero.comicsAvailables ?? 0)"
+            heroEvents.text = "Events availables: \(hero.comicsAvailables ?? 0)"
             favoriteImageView.image = hero.isFavorite ? UIImage(systemName: "bookmark.fill") : UIImage(systemName: "bookmark")
         }
     }

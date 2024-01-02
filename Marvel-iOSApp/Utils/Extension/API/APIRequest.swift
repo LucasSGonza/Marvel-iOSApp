@@ -19,10 +19,10 @@ class APIRequest {
     let baseUrl: String = "https://gateway.marvel.com/v1/public"
     let publicKey: String = "d45266d7de590f0008fb57ac7c925be6"
     let privateKey: String = "39c52df0c1a74c0b4e5d635057241a8d09ed23da"
-    let apiLimit: Int = 100
     
-    //esses parametros, que tbm estao presentes no 'getAllCharacters', são para chegar na VC e definir o limit e offset da req --> para ajudar na paginação
-    func validateRequestToAPI(limit: Int, offset: Int) -> Observable<DataRequest> {
+    //MARK: Create URL to send to API
+    //esses parametros são para serem usados na Dashboard, definindo limit e offset de cada req
+    func validateRequestFromAPI(limit: Int, offset: Int) -> Observable<DataRequest> {
         let timestamp = Int(Date().timeIntervalSince1970)
         let hashData = "\(timestamp)\(privateKey)\(publicKey)".data(using: .utf8)!
         let hash = Insecure.MD5.hash(data: hashData).map{String(format: "%02hhx", $0)}.joined()
@@ -32,46 +32,14 @@ class APIRequest {
         return RxAlamofire.request(.get, url, parameters: nil, encoding: JSONEncoding.default, headers: nil)
     }
     
-    //usando Single<> ao inves de Observable pq Singles tbm é um emissor, mas so tem 2 metodos: onSucess e onError
-    func createEventForTheRequisition(heroesToSearch: Int = 100, heroesToSkip: Int) -> Observable<Data> {
-        return validateRequestToAPI(limit: heroesToSearch, offset: heroesToSkip)
+    //MARK: Create the Observable to send to Dashboard
+    func createObservableForTheRequisition(heroesToSearch: Int = 100, heroesToSkip: Int) -> Observable<Data> {
+        return validateRequestFromAPI(limit: heroesToSearch, offset: heroesToSkip)
             .responseData()
-            .flatMap({ response -> Single<Data> in
+            .flatMap({ response -> Observable<Data> in
                 let data = try JSONDecoder().decode(Data.self, from: response.1)
-                return Single.just(data)
+                return Observable.just(data)
             })
-//            .asSingle()
     }
-    
-//    func getAllCharacters2() -> Single<Hero>? {
-//        let timestamp = Int(Date().timeIntervalSince1970)
-//        let hashData = "\(timestamp)\(privateKey)\(publicKey)".data(using: .utf8)!
-//        let hash = Insecure.MD5.hash(data: hashData).map{String(format: "%02hhx", $0)}.joined()
-//        let url = baseUrl + "/characters?ts=\(timestamp)&apikey=\(publicKey)&hash=\(hash)&limit=1"
-//
-//        return RxAlamofire.request(.get, url, encoding: JSONEncoding.default)
-//            .responseData()
-//            .flatMap({ response -> Single<Hero> in
-//                let data = try JSONDecoder().decode(Hero.self, from: response.1)
-//                return Single.just(data)
-//            })
-//            .asSingle()
-//    }
 
 }
-
-//extension DataRequest {
-//    func validateResponse() -> Single<Data> {
-//        return Single.create { observer in
-//            self.responseData(completionHandler: { response in
-//                switch response.result {
-//                case .success(let data):
-//                    observer(.success(data))
-//                case .failure(let error):
-//                    observer(.error(error))
-//                }
-//            })
-//            return Disposables.create()
-//        }
-//    }
-//}
