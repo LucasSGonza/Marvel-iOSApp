@@ -18,6 +18,7 @@ class SingleHeroViewController: UIViewController {
     @IBOutlet weak var heroEvents: UILabel!
     
     @IBOutlet weak var viewForHeroImg: UIView!
+    
     @IBOutlet weak var viewForInfos: UIView!
     @IBOutlet weak var favoriteImageView: UIImageView!
     
@@ -25,7 +26,8 @@ class SingleHeroViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupVisual()
+        setupScreenVisual()
+        setupVisualForHeroInfos()
         favoriteHero()
         setupNavBar()
     }
@@ -49,16 +51,34 @@ class SingleHeroViewController: UIViewController {
         self.navigationController?.popViewController(animated: true)
     }
     
-    private func setupVisual() {
+    private func setupScreenVisual() {
+        viewForHeroImg.layer.cornerRadius = 10
+        viewForHeroImg.layer.masksToBounds = true
+        viewForInfos.layer.cornerRadius = 10
+    }
+    
+    private func setupVisualForHeroInfos() {
         if let hero = hero {
             heroName.text = hero.name
             let urlImg = URL(string: hero.img)
             heroImg.kf.setImage(with: urlImg)
             heroDescription.text = !hero.description.isEmpty ? hero.description : "No description available"
-            heroComics.text = "Comics availables: \(hero.comicsAvailables ?? 0)"
-            heroSeries.text = "Series availables: \(hero.comicsAvailables ?? 0)"
-            heroStories.text = "Stories availables: \(hero.comicsAvailables ?? 0)"
-            heroEvents.text = "Events availables: \(hero.comicsAvailables ?? 0)"
+//            heroDescription.sizeToFit()
+            
+            if let heroComicsAvailables = hero.comicsAvailables, let heroSeriesAvailables = hero.seriesAvailables, let heroStoriesAvailables = hero.storiesAvailables, let heroEventsAvailables = hero.eventsAvailables {
+                
+                heroComics.text = "Comics availables: \(heroComicsAvailables)"
+                heroSeries.text = "Series availables: \(heroSeriesAvailables)"
+                heroStories.text = "Stories availables: \(heroStoriesAvailables)"
+                heroEvents.text = "Events availables: \(heroEventsAvailables)"
+                
+            } else {
+                heroComics.text = "Comics availables: Not Available"
+                heroSeries.text = "Series availables: Not Available"
+                heroStories.text = "Stories availables: Not Available"
+                heroEvents.text = "Events availables: Not Available"
+            }
+            
             favoriteImageView.image = hero.isFavorite ? UIImage(systemName: "bookmark.fill") : UIImage(systemName: "bookmark")
         }
     }

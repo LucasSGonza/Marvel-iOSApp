@@ -13,7 +13,7 @@ class TableViewCellHeroCell: UITableViewCell {
     @IBOutlet weak var heroImg: UIImageView!
     @IBOutlet weak var heroName: UILabel!
     @IBOutlet weak var heroDescription: UILabel!
-    @IBOutlet weak var heroComicsAvailable: UILabel!
+
     @IBOutlet weak var favoriteImageView: UIImageView!
     
     private var hero: Hero?
@@ -35,7 +35,6 @@ class TableViewCellHeroCell: UITableViewCell {
         let url = URL(string: hero.img)
         heroImg.kf.setImage(with: url)
         heroDescription.text = !hero.description.isEmpty ? hero.description : "No description available"
-        heroComicsAvailable.text = "Comics available: \(hero.comicsAvailables)"
     }
     
     private func favoriteHero() {

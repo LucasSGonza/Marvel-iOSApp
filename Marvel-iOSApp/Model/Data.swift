@@ -24,9 +24,9 @@ class Data: Decodable {
         var description: String
         var thumbnail: HeroImage
         var comics: Comics
-//        var series: Series
-//        var stories: Stories
-//        var events: Events
+        var series: Series
+        var stories: Stories
+        var events: Events
     }
     
     struct HeroImage: Decodable {
@@ -43,14 +43,14 @@ class Data: Decodable {
     struct Comics: Decodable {
         var available: Int
     }
-//    struct Series: Decodable {
-//        var available: Int
-//    }
-//    struct Stories: Decodable {
-//        var available: Int
-//    }
-//    struct Events: Decodable {
-//        var available: Int
-//    }
+    struct Series: Decodable {
+        var available: Int
+    }
+    struct Stories: Decodable {
+        var available: Int
+    }
+    struct Events: Decodable {
+        var available: Int
+    }
     
 }

@@ -55,14 +55,14 @@ class DashboardViewController: HelperController {
     private func getDataFromAPI() {
         showLoadingAlert()
        
-        apiRequest.createObservableForTheRequisition(heroesToSkip: 0)
+        apiRequest.createObservableForTheAllCharactersRequisition()
             .flatMap { result -> Observable<Data> in
                 
                 /*
                  1° pegar o total e construir os offsets necessários para pegar todos os heroes
                  2º criar uma array com esses offsets, para utilizar o Observable.from()
                  3° retornar esse Obsersable no flatMap
-                 */
+                */
                 
                 self.total = result.data.total
                 let requestsToDo = (self.total / 100) + 1 //1563 / 100 =~ 15
@@ -79,19 +79,18 @@ class DashboardViewController: HelperController {
                 
                 return Observable.from(self.offsetsArray)
                     .flatMap { offset -> Observable<Data> in
-                        return self.apiRequest.createObservableForTheRequisition(heroesToSearch: 100, heroesToSkip: offset)
+                        return self.apiRequest.createObservableForTheAllCharactersRequisition(heroesToSearch: 100, heroesToSkip: offset)
                             .asObservable()
                     }
             }
             .subscribeOn(ConcurrentDispatchQueueScheduler(qos: .userInitiated))
             .observeOn(MainScheduler.instance)
             .subscribe(onNext: { response in
-                print("Count: \(response.data.offset)")
+                print("Count offset \(response.data.offset): \(response.data.count)")
                 response.data.results.forEach {
                     //create a obj Hero
                     let imgUrl = ($0.thumbnail.path + "." + $0.thumbnail.extension_).replacingOccurrences(of: "http", with: "https")
-                    let hero: Hero = Hero(id: $0.id, name: $0.name, description: $0.description, img: imgUrl, comicsAvailables: $0.comics.available, reqOffset: response.data.offset)
-                    //let hero: Hero = Hero(id: $0.id, name: $0.name, description: $0.description, img: imgUrl, comicsAvailables: $0.comics.available, seriesAvailables: $0.series.available, storiesAvailables: $0.stories.available, eventsAvailables: $0.events.available, reqOffset: response.data.offset)
+                    let hero: Hero = Hero(id: $0.id, name: $0.name, description: $0.description, img: imgUrl, reqOffset: response.data.offset)
                     self.heroesArray.append(hero)
                 }
             }, onError: { error in
@@ -211,9 +210,26 @@ extension DashboardViewController: UICollectionViewDelegate, UICollectionViewDat
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let hero = customHeroesArray[indexPath.row]
         let singleHeroVC = UIStoryboard(name: "SingleHero", bundle: nil).instantiateViewController(withIdentifier: "SingleHero") as! SingleHeroViewController
-        singleHeroVC.initView(hero: customHeroesArray[indexPath.row])
-        navigationController?.pushViewController(singleHeroVC, animated: true)
+        
+        apiRequest.createSingleToSingleHeroRequisition(characterId: hero.id)
+            .subscribeOn(ConcurrentDispatchQueueScheduler(qos: .background))
+            .observeOn(MainScheduler.instance)
+            .subscribe(onSuccess: { response in
+                
+                hero.comicsAvailables = response.data.results.first?.comics.available
+                hero.seriesAvailables = response.data.results.first?.series.available
+                hero.storiesAvailables = response.data.results.first?.stories.available
+                hero.eventsAvailables = response.data.results.first?.events.available
+                
+                singleHeroVC.initView(hero: hero)
+                print("Single Hero req = success")
+                self.navigationController?.pushViewController(singleHeroVC, animated: true)
+            }, onError: { error in
+                print("Error in DashboardVC when trying to select a row:\n\(error)")
+            })
+            .disposed(by: disposeBag)
     }
     
 }

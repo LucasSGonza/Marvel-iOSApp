@@ -8,7 +8,7 @@
 import UIKit
 
 class HelperController: UIViewController {
-    var alertForLoading = UIAlertController(title: nil, message: "Please wait...", preferredStyle: .alert)
+    var alertForLoading = UIAlertController(title: "Please wait", message: "Loading data...", preferredStyle: .alert)
     
     func setupLoadingAlert(completion: (() -> Void)? = nil) {
         alertForLoading.view.tintColor = UIColor.white

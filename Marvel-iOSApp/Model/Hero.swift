@@ -9,33 +9,25 @@ import UIKit
 
 class Hero {
     
-    var reqOffset: Int
+    //init properties
     var id: Int
     var name: String
     var description: String
     var img: String
-    var comicsAvailables: Int
-    var isFavorite: Bool = false
+    var reqOffset: Int
     
-    init(id: Int, name: String, description: String, img: String, comicsAvailables: Int, reqOffset: Int) {
+    var isFavorite: Bool = false
+    var comicsAvailables: Int?
+    var seriesAvailables: Int?
+    var storiesAvailables: Int?
+    var eventsAvailables: Int?
+    
+    init(id: Int, name: String, description: String, img: String, reqOffset: Int) {
         self.id = id
         self.name = name
         self.description = description
         self.img = img
-        self.comicsAvailables = comicsAvailables
         self.reqOffset = reqOffset
     }
-    
-//    init(id: Int, name: String, description: String, img: String, comicsAvailables: Int, seriesAvailables: Int, storiesAvailables: Int, eventsAvailables: Int , reqOffset: Int) {
-//        self.id = id
-//        self.name = name
-//        self.description = description
-//        self.img = img
-//        self.comicsAvailables = comicsAvailables
-//        self.seriesAvailables = seriesAvailables
-//        self.storiesAvailables = storiesAvailables
-//        self.eventsAvailables = eventsAvailables
-//        self.reqOffset = reqOffset
-//    }
     
 }
