@@ -11,7 +11,10 @@ class SingleHeroViewController: UIViewController {
     
     @IBOutlet weak var heroName: UILabel!
     @IBOutlet weak var heroImg: UIImageView!
-    @IBOutlet weak var heroDescription: UILabel!
+    
+    @IBOutlet weak var heroDescription: UITextView!
+//    @IBOutlet weak var heroDescriptionHeightConstraint: NSLayoutConstraint!
+    
     @IBOutlet weak var heroComics: UILabel!
     @IBOutlet weak var heroSeries: UILabel!
     @IBOutlet weak var heroStories: UILabel!
@@ -63,7 +66,8 @@ class SingleHeroViewController: UIViewController {
             let urlImg = URL(string: hero.img)
             heroImg.kf.setImage(with: urlImg)
             heroDescription.text = !hero.description.isEmpty ? hero.description : "No description available"
-//            heroDescription.sizeToFit()
+            
+//            heroDescriptionHeightConstraint.constant = hero.description.isEmpty ? 10.0 : 210.0
             
             if let heroComicsAvailables = hero.comicsAvailables, let heroSeriesAvailables = hero.seriesAvailables, let heroStoriesAvailables = hero.storiesAvailables, let heroEventsAvailables = hero.eventsAvailables {
                 
