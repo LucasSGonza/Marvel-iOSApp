@@ -5,7 +5,6 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
-        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -25,7 +24,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="150" height="140"/>
                             </imageView>
                         </subviews>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <color key="backgroundColor" name="backgroundColorForCell"/>
                         <constraints>
                             <constraint firstAttribute="bottom" secondItem="06O-mB-wZk" secondAttribute="bottom" id="0Mn-Zm-uvK"/>
                             <constraint firstAttribute="width" constant="150" id="7DH-TJ-JxA"/>
@@ -40,18 +39,18 @@
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Character Name" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="none" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="329-Fc-b5i">
                                 <rect key="frame" x="10" y="12" width="130" height="17"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="textColor" name="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Description" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SfR-cy-Gxv">
                                 <rect key="frame" x="10" y="40" width="160" height="88"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="textColor" name="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <imageView clipsSubviews="YES" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bookmark.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="I9g-4h-sCM">
                                 <rect key="frame" x="150" y="10" width="20" height="20"/>
-                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="tintColor" name="textColor"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="20" id="APX-jG-nfQ"/>
                                     <constraint firstAttribute="height" constant="20" id="er2-ae-ysc"/>
@@ -72,6 +71,7 @@
                         </constraints>
                     </view>
                 </subviews>
+                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 <constraints>
                     <constraint firstAttribute="trailing" secondItem="oAo-n8-IZl" secondAttribute="trailing" id="CXg-7D-h1t"/>
                     <constraint firstItem="oAo-n8-IZl" firstAttribute="leading" secondItem="8dT-Vv-GIv" secondAttribute="trailing" id="Sen-Nq-tn0"/>
@@ -88,6 +88,7 @@
                 <outlet property="heroDescription" destination="SfR-cy-Gxv" id="oQ8-bN-NkY"/>
                 <outlet property="heroImg" destination="06O-mB-wZk" id="tzb-Mt-pob"/>
                 <outlet property="heroName" destination="329-Fc-b5i" id="5gC-Mk-nQw"/>
+                <outlet property="infoView" destination="oAo-n8-IZl" id="bVi-SY-L6c"/>
                 <outlet property="viewForImage" destination="8dT-Vv-GIv" id="h2w-g2-8Tc"/>
             </connections>
             <point key="canvasLocation" x="147.82608695652175" y="87.053571428571431"/>
@@ -97,10 +98,10 @@
         <image name="bookmark.fill" catalog="system" width="112" height="128"/>
         <image name="defaultHeroImg" width="633" height="537"/>
         <namedColor name="backgroundColorForCell">
-            <color red="0.090196078431372548" green="0.094117647058823528" blue="0.12941176470588237" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
-        <systemColor name="systemBackgroundColor">
-            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-        </systemColor>
+        <namedColor name="textColor">
+            <color red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
     </resources>
 </document>

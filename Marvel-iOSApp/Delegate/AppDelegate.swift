@@ -36,11 +36,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
             navigationBarAppearance.titleTextAttributes = [
                 NSAttributedString.Key.foregroundColor: UIColor.white,
-                NSAttributedString.Key.font : UIFont.systemFont(ofSize: 15.0)
+                NSAttributedString.Key.font : UIFont.systemFont(ofSize: 15.0, weight: .bold)
             ]
             
-            navigationBarAppearance.tintColor = UIColor(named: "backgroundColor")
-            navigationBarAppearance.barTintColor = UIColor(named: "backgroundColor")
+            navigationBarAppearance.tintColor = UIColor(named: "barColor")
+            navigationBarAppearance.barTintColor = UIColor(named: "barColor")
             navigationBarAppearance.isTranslucent = true
 
 //            let barButtonAppearance = UIBarButtonItem.appearance()

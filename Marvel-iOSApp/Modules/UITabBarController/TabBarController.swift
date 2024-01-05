@@ -43,6 +43,7 @@ class TabBarController: UITabBarController {
         
         //cria uma navigation para cada viewController
         let dashboard = self.createNav(title: "Dashboard", image: UIImage(systemName: "house.fill"), vc: dashboardVC)
+        
         let favoriteScreen = self.createNav(title: "Favorite's Heroes", image: UIImage(systemName: "star.fill"), vc: favoriteScreenVC)
         
         self.setViewControllers([dashboard, favoriteScreen], animated: false)
@@ -54,7 +55,11 @@ class TabBarController: UITabBarController {
         nav.tabBarItem.title = title
         nav.tabBarItem.image = image
         nav.viewControllers.first?.navigationItem.title = title
-//        nav.viewControllers.first?.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Button", style: .plain, target: nil, action: nil)
+        nav.navigationBar.barTintColor = UIColor(named: "barColor")
+        nav.navigationBar.titleTextAttributes = [
+            NSAttributedString.Key.foregroundColor: UIColor.white,
+            NSAttributedString.Key.font : UIFont.systemFont(ofSize: 15.0, weight: .bold)
+        ]
         return nav
     }
     

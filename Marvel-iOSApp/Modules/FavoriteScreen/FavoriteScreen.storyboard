@@ -26,15 +26,15 @@
                                         <color key="barTintColor" name="backgroundColor"/>
                                         <textInputTraits key="textInputTraits"/>
                                     </searchBar>
-                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="3BB-42-po7">
-                                        <rect key="frame" x="0.0" y="76" width="414" height="742"/>
+                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="3BB-42-po7">
+                                        <rect key="frame" x="5" y="76" width="404" height="742"/>
                                         <color key="backgroundColor" name="backgroundColor"/>
                                     </tableView>
                                 </subviews>
                                 <color key="backgroundColor" name="backgroundColor"/>
                                 <constraints>
-                                    <constraint firstItem="3BB-42-po7" firstAttribute="leading" secondItem="Bac-5W-lB8" secondAttribute="leading" id="23O-Pi-Q9s"/>
-                                    <constraint firstAttribute="trailing" secondItem="3BB-42-po7" secondAttribute="trailing" id="HZU-7h-GHj"/>
+                                    <constraint firstItem="3BB-42-po7" firstAttribute="leading" secondItem="Bac-5W-lB8" secondAttribute="leading" constant="5" id="23O-Pi-Q9s"/>
+                                    <constraint firstAttribute="trailing" secondItem="3BB-42-po7" secondAttribute="trailing" constant="5" id="HZU-7h-GHj"/>
                                     <constraint firstAttribute="bottom" secondItem="3BB-42-po7" secondAttribute="bottom" id="KfA-NR-8BS"/>
                                     <constraint firstItem="3l2-vv-tmt" firstAttribute="top" secondItem="Bac-5W-lB8" secondAttribute="top" id="Wwf-wk-MxV"/>
                                     <constraint firstAttribute="trailing" secondItem="3l2-vv-tmt" secondAttribute="trailing" id="a2R-1c-cVv"/>

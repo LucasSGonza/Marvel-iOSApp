@@ -77,9 +77,11 @@ class DashboardViewController: HelperController {
                 
                 print("Numero de offsets: \(self.offsetsArray.count)")
                 
-                return Observable.from(self.offsetsArray)
+                let offsetArrayTesteRapidao = [0]
+                
+                return Observable.from(offsetArrayTesteRapidao)
                     .flatMap { offset -> Observable<Data> in
-                        return self.apiRequest.createObservableForTheAllCharactersRequisition(heroesToSearch: 100, heroesToSkip: offset)
+                        return self.apiRequest.createObservableForTheAllCharactersRequisition(heroesToSearch: 5, heroesToSkip: offset)
                             .asObservable()
                     }
             }

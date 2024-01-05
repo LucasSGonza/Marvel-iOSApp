@@ -48,6 +48,17 @@ class SingleHeroViewController: UIViewController {
     private func setupNavBar() {
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(
             barButtonSystemItem: .close, target: self, action: #selector(goBack))
+        
+        self.navigationController?.navigationBar.tintColor = UIColor(named: "barColor")
+        self.navigationController?.navigationBar.barTintColor = UIColor(named: "barColor")
+        self.navigationController?.navigationBar.isTranslucent = true
+        
+        self.navigationController?.navigationBar.titleTextAttributes = [
+                NSAttributedString.Key.foregroundColor: UIColor(named: "textColor") ?? UIColor.white,
+                NSAttributedString.Key.font : UIFont.systemFont(ofSize: 15.0)
+        ]
+        
+        self.navigationController?.title = hero?.name ?? "Hero Name"
     }
     
     @objc private func goBack() {
@@ -58,6 +69,9 @@ class SingleHeroViewController: UIViewController {
         viewForHeroImg.layer.cornerRadius = 10
         viewForHeroImg.layer.masksToBounds = true
         viewForInfos.layer.cornerRadius = 10
+        
+        heroDescription.layer.backgroundColor = UIColor(named: "backgroundColorForDescription")?.cgColor ?? UIColor.gray.cgColor
+        heroDescription.layer.cornerRadius = 10
     }
     
     private func setupVisualForHeroInfos() {
