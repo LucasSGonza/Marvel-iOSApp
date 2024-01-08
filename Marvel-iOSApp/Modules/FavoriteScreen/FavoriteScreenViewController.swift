@@ -26,7 +26,7 @@ class FavoriteScreenViewController: HelperController {
     }
     
     private func startAllSetupFunctions() {
-        setupLoadingAlert()
+//        setupLoadingAlert()
         setupTableView()
         setupSearchBar()
         setupCustomHeroesArrayToDefault()

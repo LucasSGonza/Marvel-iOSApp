@@ -23,11 +23,12 @@
                                     <searchBar contentMode="redraw" placeholder="Search for a MARVEL character" showsCancelButton="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3l2-vv-tmt">
                                         <rect key="frame" x="0.0" y="0.0" width="414" height="56"/>
                                         <color key="backgroundColor" name="backgroundColor"/>
+                                        <color key="tintColor" name="textColor"/>
                                         <color key="barTintColor" name="backgroundColor"/>
                                         <textInputTraits key="textInputTraits"/>
                                     </searchBar>
                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="3BB-42-po7">
-                                        <rect key="frame" x="5" y="76" width="404" height="742"/>
+                                        <rect key="frame" x="5" y="66" width="404" height="742"/>
                                         <color key="backgroundColor" name="backgroundColor"/>
                                     </tableView>
                                 </subviews>
@@ -35,11 +36,11 @@
                                 <constraints>
                                     <constraint firstItem="3BB-42-po7" firstAttribute="leading" secondItem="Bac-5W-lB8" secondAttribute="leading" constant="5" id="23O-Pi-Q9s"/>
                                     <constraint firstAttribute="trailing" secondItem="3BB-42-po7" secondAttribute="trailing" constant="5" id="HZU-7h-GHj"/>
-                                    <constraint firstAttribute="bottom" secondItem="3BB-42-po7" secondAttribute="bottom" id="KfA-NR-8BS"/>
+                                    <constraint firstAttribute="bottom" secondItem="3BB-42-po7" secondAttribute="bottom" constant="10" id="KfA-NR-8BS"/>
                                     <constraint firstItem="3l2-vv-tmt" firstAttribute="top" secondItem="Bac-5W-lB8" secondAttribute="top" id="Wwf-wk-MxV"/>
                                     <constraint firstAttribute="trailing" secondItem="3l2-vv-tmt" secondAttribute="trailing" id="a2R-1c-cVv"/>
                                     <constraint firstItem="3l2-vv-tmt" firstAttribute="leading" secondItem="Bac-5W-lB8" secondAttribute="leading" id="h1D-dX-9Tj"/>
-                                    <constraint firstItem="3BB-42-po7" firstAttribute="top" secondItem="3l2-vv-tmt" secondAttribute="bottom" constant="20" id="spk-ai-coV"/>
+                                    <constraint firstItem="3BB-42-po7" firstAttribute="top" secondItem="3l2-vv-tmt" secondAttribute="bottom" constant="10" id="spk-ai-coV"/>
                                 </constraints>
                             </view>
                         </subviews>
@@ -65,6 +66,9 @@
     <resources>
         <namedColor name="backgroundColor">
             <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="textColor">
+            <color red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

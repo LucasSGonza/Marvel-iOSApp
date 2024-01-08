@@ -13,8 +13,7 @@ class SingleHeroViewController: UIViewController {
     @IBOutlet weak var heroImg: UIImageView!
     
     @IBOutlet weak var heroDescription: UITextView!
-//    @IBOutlet weak var heroDescriptionHeightConstraint: NSLayoutConstraint!
-    
+
     @IBOutlet weak var heroComics: UILabel!
     @IBOutlet weak var heroSeries: UILabel!
     @IBOutlet weak var heroStories: UILabel!
@@ -46,19 +45,17 @@ class SingleHeroViewController: UIViewController {
     }
     
     private func setupNavBar() {
+        print(self.navigationController?.visibleViewController ?? "sem vc")
+        
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(
-            barButtonSystemItem: .close, target: self, action: #selector(goBack))
+            image: UIImage(systemName: "chevron.backward"),
+            style: .done,
+            target: self,
+            action: #selector(goBack)
+        )
+        self.navigationItem.leftBarButtonItem?.tintColor = UIColor.white
         
-        self.navigationController?.navigationBar.tintColor = UIColor(named: "barColor")
-        self.navigationController?.navigationBar.barTintColor = UIColor(named: "barColor")
-        self.navigationController?.navigationBar.isTranslucent = true
-        
-        self.navigationController?.navigationBar.titleTextAttributes = [
-                NSAttributedString.Key.foregroundColor: UIColor(named: "textColor") ?? UIColor.white,
-                NSAttributedString.Key.font : UIFont.systemFont(ofSize: 15.0)
-        ]
-        
-        self.navigationController?.title = hero?.name ?? "Hero Name"
+        self.navigationItem.title = hero?.name ?? "Single Hero"
     }
     
     @objc private func goBack() {
@@ -80,8 +77,6 @@ class SingleHeroViewController: UIViewController {
             let urlImg = URL(string: hero.img)
             heroImg.kf.setImage(with: urlImg)
             heroDescription.text = !hero.description.isEmpty ? hero.description : "No description available"
-            
-//            heroDescriptionHeightConstraint.constant = hero.description.isEmpty ? 10.0 : 210.0
             
             if let heroComicsAvailables = hero.comicsAvailables, let heroSeriesAvailables = hero.seriesAvailables, let heroStoriesAvailables = hero.storiesAvailables, let heroEventsAvailables = hero.eventsAvailables {
                 

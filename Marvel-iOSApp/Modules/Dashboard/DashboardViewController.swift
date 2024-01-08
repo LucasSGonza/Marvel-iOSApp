@@ -17,13 +17,8 @@ class DashboardViewController: HelperController {
     @IBOutlet weak var pageControl: UIPageControl!
     @IBOutlet weak var rightButton: UIButton!
     @IBOutlet weak var leftButton: UIButton!
-    private var currentPage = 0
     
     private var apiRequest = APIRequest()
-    
-    private var offsetsArray: [Int] = []
-    private var offset: Int = 0
-    private var total: Int = 0
 
     private var heroesArray: [Hero] = []
     private var customHeroesArray: [Hero] = []
@@ -47,14 +42,13 @@ class DashboardViewController: HelperController {
     private func startAllSetupFunctions() {
         setupSearchBar()
         setupCollectionView()
-        setupLoadingAlert()
-        updateVisualOfPageControl()
+        setupAlerts()
     }
     
     //MARK: Get Data from API
     private func getDataFromAPI() {
         showLoadingAlert()
-       
+        
         apiRequest.createObservableForTheAllCharactersRequisition()
             .flatMap { result -> Observable<Data> in
                 
@@ -64,24 +58,28 @@ class DashboardViewController: HelperController {
                  3° retornar esse Obsersable no flatMap
                 */
                 
-                self.total = result.data.total
-                let requestsToDo = (self.total / 100) + 1 //1563 / 100 =~ 15
+//                self.total = result.data.total
+                
+                let requestsToDo = (result.data.total / 100) + 1 //1563 / 100 =~ 15
+                var offset = 0
+                var offsetsArray: [Int] = []
+                
                 print("Requests to do: \(requestsToDo)")
                 
                 for _ in 0..<requestsToDo {
                     //offset começa em 0
-                    print(self.offset)
-                    self.offsetsArray.append(self.offset)
-                    self.offset += 100
+                    print(offset)
+                    offsetsArray.append(offset)
+                    offset += 100
                 }
                 
-                print("Numero de offsets: \(self.offsetsArray.count)")
+                print("Numero de offsets: \(offsetsArray.count)")
                 
-                let offsetArrayTesteRapidao = [0]
+                let offsetArrayTesteRapidao = [0,100,200]
                 
                 return Observable.from(offsetArrayTesteRapidao)
                     .flatMap { offset -> Observable<Data> in
-                        return self.apiRequest.createObservableForTheAllCharactersRequisition(heroesToSearch: 5, heroesToSkip: offset)
+                        return self.apiRequest.createObservableForTheAllCharactersRequisition(heroesToSearch: 100, heroesToSkip: offset)
                             .asObservable()
                     }
             }
@@ -96,19 +94,32 @@ class DashboardViewController: HelperController {
                     self.heroesArray.append(hero)
                 }
             }, onError: { error in
-                print("Error: \(error)")
+                print("Error: \(error.localizedDescription)")
+                self.dismissLoadingAlert() {
+                    self.showErrorAlert(message: error.localizedDescription)
+                }
+//                DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
+//                    self.showErrorAlert(message: error.localizedDescription)
+//                }
             }, onCompleted: {
                 //envia a referencia do objeto que sera manipulado para a TabBar
                 self.delegateTabBar?.setHeroesArray(self.heroesArray)
+                
                 //ordena os personagens em ordem alfabetica
                 self.heroesArray = self.heroesArray.sorted { $0.name < $1.name }
+                
                 //popula a array custom
                 self.setupCustomHeroesArrayToDefault()
+                
                 //define os heroes a serem exibidos na tela inicial (inicial = pagina '0')
                 self.setHeroesBasedOnActualPage()
+                
                 //da reload, define o numero de paginas e tira o alerta
                 self.collectionView.reloadData()
-                self.pageControl.numberOfPages = (self.total / 100) //1563 heroes total, limit 100 por req
+                
+                self.pageControl.numberOfPages = (self.heroesArray.count / 100)
+                self.updateVisualOfPageControl()
+                
                 self.dismissLoadingAlert()
             })
             .disposed(by: disposeBag) //evitar memory leak --> liberar recurso
@@ -121,6 +132,7 @@ class DashboardViewController: HelperController {
     }
     
     private func setupSearchBar() {
+        searchBar.tintColor = UIColor(named: "textColor") ?? UIColor.black
         searchBar.showsCancelButton = false
         searchBar.searchTextField.font = .systemFont(ofSize: 13.0)
         searchBar.delegate = self
@@ -133,37 +145,29 @@ class DashboardViewController: HelperController {
     }
 
     private func updateVisualOfPageControl() {
-        if currentPage == 0 {
-            leftButton.isHidden = true
-        } else if currentPage == pageControl.numberOfPages {
-            rightButton.isHidden = true
-        } else {
-            leftButton.isHidden = false
-            rightButton.isHidden = false
-        }
-        pageControl.currentPage = currentPage
+        leftButton.isHidden = pageControl.currentPage == 0 ? true : false
+        rightButton.isHidden = pageControl.currentPage == pageControl.numberOfPages - 1 ? true : false
     }
     
     private func setHeroesBasedOnActualPage() {
-//        print(combinePageAndOffsetAndReturnIt(currentPage: self.currentPage))
         setupCustomHeroesArrayToDefault()
         customHeroesArray = customHeroesArray.filter{
-            $0.reqOffset == (currentPage * 100)
+            $0.reqOffset == (pageControl.currentPage * 100)
         }
         collectionView.reloadData()
     }
     
     @IBAction func goToNextPage(_ sender: Any) {
-        if currentPage < pageControl.numberOfPages {
-            currentPage += 1
+        if pageControl.currentPage < pageControl.numberOfPages {
+            pageControl.currentPage += 1
             updateVisualOfPageControl()
             setHeroesBasedOnActualPage()
         }
     }
     
     @IBAction func backToPreviousPage(_ sender: Any) {
-        if currentPage > 0 {
-            currentPage -= 1
+        if pageControl.currentPage > 0 {
+            pageControl.currentPage -= 1
             updateVisualOfPageControl()
             setHeroesBasedOnActualPage()
         }
@@ -213,6 +217,7 @@ extension DashboardViewController: UICollectionViewDelegate, UICollectionViewDat
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let hero = customHeroesArray[indexPath.row]
+        
         let singleHeroVC = UIStoryboard(name: "SingleHero", bundle: nil).instantiateViewController(withIdentifier: "SingleHero") as! SingleHeroViewController
         
         apiRequest.createSingleToSingleHeroRequisition(characterId: hero.id)

@@ -37,7 +37,7 @@
                         <rect key="frame" x="150" y="0.0" width="180" height="140"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Character Name" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="none" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="329-Fc-b5i">
-                                <rect key="frame" x="10" y="12" width="130" height="17"/>
+                                <rect key="frame" x="10" y="12" width="140" height="17"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <color key="textColor" name="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -49,7 +49,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <imageView clipsSubviews="YES" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bookmark.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="I9g-4h-sCM">
-                                <rect key="frame" x="150" y="10" width="20" height="20"/>
+                                <rect key="frame" x="155" y="10" width="20" height="20"/>
                                 <color key="tintColor" name="textColor"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="20" id="APX-jG-nfQ"/>
@@ -61,10 +61,11 @@
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="SfR-cy-Gxv" secondAttribute="trailing" constant="10" id="A0J-Gg-Fdh"/>
                             <constraint firstItem="SfR-cy-Gxv" firstAttribute="top" secondItem="I9g-4h-sCM" secondAttribute="bottom" constant="10" id="CyW-jd-4Xl"/>
-                            <constraint firstAttribute="trailing" secondItem="I9g-4h-sCM" secondAttribute="trailing" constant="10" id="IKw-fk-gib"/>
+                            <constraint firstItem="SfR-cy-Gxv" firstAttribute="top" secondItem="329-Fc-b5i" secondAttribute="bottom" constant="11" id="H9o-ir-buT"/>
+                            <constraint firstAttribute="trailing" secondItem="I9g-4h-sCM" secondAttribute="trailing" constant="5" id="IKw-fk-gib"/>
                             <constraint firstAttribute="bottom" secondItem="SfR-cy-Gxv" secondAttribute="bottom" constant="12" id="JA3-u5-3bM"/>
                             <constraint firstItem="SfR-cy-Gxv" firstAttribute="leading" secondItem="oAo-n8-IZl" secondAttribute="leading" constant="10" id="YaF-t9-Nsl"/>
-                            <constraint firstItem="I9g-4h-sCM" firstAttribute="leading" secondItem="329-Fc-b5i" secondAttribute="trailing" constant="10" id="YdV-Dc-2d6"/>
+                            <constraint firstItem="I9g-4h-sCM" firstAttribute="leading" secondItem="329-Fc-b5i" secondAttribute="trailing" constant="5" id="YdV-Dc-2d6"/>
                             <constraint firstItem="I9g-4h-sCM" firstAttribute="top" secondItem="oAo-n8-IZl" secondAttribute="top" constant="10" id="hVj-bR-r2u"/>
                             <constraint firstItem="329-Fc-b5i" firstAttribute="leading" secondItem="oAo-n8-IZl" secondAttribute="leading" constant="10" id="okF-FS-Y0S"/>
                             <constraint firstItem="329-Fc-b5i" firstAttribute="top" secondItem="oAo-n8-IZl" secondAttribute="top" constant="12" id="wsZ-Li-Zmu"/>
