@@ -7,6 +7,7 @@
 
 import UIKit
 
+// MARK: 1 i don't think this is a good thing to do, its better if you split each struct to a new archive or put it separately
 class Data: Decodable {
     
     var data: Result

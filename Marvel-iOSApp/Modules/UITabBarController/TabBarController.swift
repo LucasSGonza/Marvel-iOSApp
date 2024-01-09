@@ -39,8 +39,6 @@ class TabBarController: UITabBarController {
         
         let favoriteScreenVC = UIStoryboard(name: "FavoriteScreen", bundle: nil).instantiateViewController(withIdentifier: "FavoriteScreen") as! FavoriteScreenViewController
         
-        let singleHeroVC = UIStoryboard(name: "SingleHero", bundle: nil).instantiateViewController(withIdentifier: "SingleHero") as! SingleHeroViewController
-        
         delegateFavorite = favoriteScreenVC //recebe a referencia da favorite Screen
         
         //cria uma navigation para cada viewController

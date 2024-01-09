@@ -8,6 +8,8 @@
 import UIKit
 import RxSwift
 
+// MARK: 1 usage tip, maybe you should create a swipe gesture to change between screens, because right now we need to click in the little arrow to go foward and back to see new heroes
+
 class DashboardViewController: HelperController {
 
     @IBOutlet weak var barForPagination: UIView!
@@ -17,6 +19,10 @@ class DashboardViewController: HelperController {
     @IBOutlet weak var pageControl: UIPageControl!
     @IBOutlet weak var rightButton: UIButton!
     @IBOutlet weak var leftButton: UIButton!
+    
+    @IBOutlet weak var viewForInformation: UIView!
+    @IBOutlet weak var labelMessageForInfos: UILabel!
+    @IBOutlet weak var tryAgainButton: UIButton!
     
     private var apiRequest = APIRequest()
 
@@ -43,6 +49,8 @@ class DashboardViewController: HelperController {
         setupSearchBar()
         setupCollectionView()
         setupAlerts()
+        viewForInformation.layer.cornerRadius = 10
+        tryAgainButton.layer.cornerRadius = 10
     }
     
     //MARK: Get Data from API
@@ -58,16 +66,13 @@ class DashboardViewController: HelperController {
                  3° retornar esse Obsersable no flatMap
                 */
                 
-//                self.total = result.data.total
-                
-                let requestsToDo = (result.data.total / 100) + 1 //1563 / 100 =~ 15
+                let requestsToDo = (result.data.total / 100) + 1
                 var offset = 0
                 var offsetsArray: [Int] = []
-                
+                print("Total: \(result.data.total)")
                 print("Requests to do: \(requestsToDo)")
                 
                 for _ in 0..<requestsToDo {
-                    //offset começa em 0
                     print(offset)
                     offsetsArray.append(offset)
                     offset += 100
@@ -75,10 +80,17 @@ class DashboardViewController: HelperController {
                 
                 print("Numero de offsets: \(offsetsArray.count)")
                 
-                let offsetArrayTesteRapidao = [0,100,200]
+//                let offsetArrayTesteRapidao = [0,100,200]
                 
-                return Observable.from(offsetArrayTesteRapidao)
+                return Observable.from(offsetsArray)
                     .flatMap { offset -> Observable<Data> in
+                        
+                        //essa verificação serve para que quando for a 'ultima' requisição necessária a ser feita, o limit dela ser exatamente igual ao numero de heroes que faltam --> por algum motivo, se eu colocar um limit maior que o necessario, ele não busca todos (?)
+                        let lastHeroesToSearch = result.data.total - offset
+                        if lastHeroesToSearch < 100 {
+                            return self.apiRequest.createObservableForTheAllCharactersRequisition(heroesToSearch: lastHeroesToSearch, heroesToSkip: offset)
+                        }
+                        
                         return self.apiRequest.createObservableForTheAllCharactersRequisition(heroesToSearch: 100, heroesToSkip: offset)
                             .asObservable()
                     }
@@ -86,7 +98,7 @@ class DashboardViewController: HelperController {
             .subscribeOn(ConcurrentDispatchQueueScheduler(qos: .userInitiated))
             .observeOn(MainScheduler.instance)
             .subscribe(onNext: { response in
-                print("Count offset \(response.data.offset): \(response.data.count)")
+                print("Offset \(response.data.offset): count \(response.data.count)")
                 response.data.results.forEach {
                     //create a obj Hero
                     let imgUrl = ($0.thumbnail.path + "." + $0.thumbnail.extension_).replacingOccurrences(of: "http", with: "https")
@@ -95,13 +107,17 @@ class DashboardViewController: HelperController {
                 }
             }, onError: { error in
                 print("Error: \(error.localizedDescription)")
+                //tira alert de loading e exibe o erro ao usuario
                 self.dismissLoadingAlert() {
                     self.showErrorAlert(message: error.localizedDescription)
+                    //retira da tela alguns itens
+                    self.isScreenShowingTheViewForError(true)
+                    self.labelMessageForInfos.text = error.localizedDescription
                 }
-//                DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
-//                    self.showErrorAlert(message: error.localizedDescription)
-//                }
             }, onCompleted: {
+                //verifica se estava sendo exibido um erro antes
+                self.isScreenShowingTheViewForError(false)
+                
                 //envia a referencia do objeto que sera manipulado para a TabBar
                 self.delegateTabBar?.setHeroesArray(self.heroesArray)
                 
@@ -117,12 +133,25 @@ class DashboardViewController: HelperController {
                 //da reload, define o numero de paginas e tira o alerta
                 self.collectionView.reloadData()
                 
+                print(self.heroesArray.count)
+                
                 self.pageControl.numberOfPages = (self.heroesArray.count / 100)
                 self.updateVisualOfPageControl()
                 
                 self.dismissLoadingAlert()
             })
             .disposed(by: disposeBag) //evitar memory leak --> liberar recurso
+    }
+    
+    @IBAction func reloadRequisitionToAPI(_ sender: Any) {
+        getDataFromAPI()
+    }
+    
+    private func isScreenShowingTheViewForError(_ flag: Bool) {
+        print("showing a error? \(flag)")
+        self.collectionView.isHidden = flag
+        self.searchBar.isHidden = flag
+        self.viewForInformation.isHidden = !flag
     }
     
     private func setupCollectionView() {
@@ -219,24 +248,37 @@ extension DashboardViewController: UICollectionViewDelegate, UICollectionViewDat
         let hero = customHeroesArray[indexPath.row]
         
         let singleHeroVC = UIStoryboard(name: "SingleHero", bundle: nil).instantiateViewController(withIdentifier: "SingleHero") as! SingleHeroViewController
+
+        // verifica se o heroi ja possui uma informação que somente é recebida após essa requisição individual de heroi, ou seja, se ela já foi feita, não precisa fazer novamente
+        if hero.comicsAvailables == nil {
+            
+            showLoadingAlert()
+            
+            apiRequest.createSingleToSingleHeroRequisition(characterId: hero.id)
+                .subscribeOn(ConcurrentDispatchQueueScheduler(qos: .background))
+                .observeOn(MainScheduler.instance)
+                .subscribe(onSuccess: { response in
+                    
+                    hero.comicsAvailables = response.data.results.first?.comics.available
+                    hero.seriesAvailables = response.data.results.first?.series.available
+                    hero.storiesAvailables = response.data.results.first?.stories.available
+                    hero.eventsAvailables = response.data.results.first?.events.available
+                    
+                    singleHeroVC.initView(hero: hero)
+                    self.dismissLoadingAlert() {
+                        self.navigationController?.pushViewController(singleHeroVC, animated: true)
+                    }
+                }, onError: { error in
+                    self.dismissLoadingAlert {
+                        self.showErrorAlert(message: "Unable to open infos because \(error.localizedDescription)")
+                    }
+                })
+                .disposed(by: disposeBag)
+        } else {
+            singleHeroVC.initView(hero: hero)
+            self.navigationController?.pushViewController(singleHeroVC, animated: true)
+        }
         
-        apiRequest.createSingleToSingleHeroRequisition(characterId: hero.id)
-            .subscribeOn(ConcurrentDispatchQueueScheduler(qos: .background))
-            .observeOn(MainScheduler.instance)
-            .subscribe(onSuccess: { response in
-                
-                hero.comicsAvailables = response.data.results.first?.comics.available
-                hero.seriesAvailables = response.data.results.first?.series.available
-                hero.storiesAvailables = response.data.results.first?.stories.available
-                hero.eventsAvailables = response.data.results.first?.events.available
-                
-                singleHeroVC.initView(hero: hero)
-                print("Single Hero req = success")
-                self.navigationController?.pushViewController(singleHeroVC, animated: true)
-            }, onError: { error in
-                print("Error in DashboardVC when trying to select a row:\n\(error)")
-            })
-            .disposed(by: disposeBag)
     }
     
 }

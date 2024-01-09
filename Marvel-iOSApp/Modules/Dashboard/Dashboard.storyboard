@@ -47,11 +47,58 @@
                                             </collectionViewCell>
                                         </cells>
                                     </collectionView>
+                                    <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="o82-D9-seF">
+                                        <rect key="frame" x="82" y="309" width="250" height="200"/>
+                                        <subviews>
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="exclamationmark.triangle.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="pFF-kc-YPm">
+                                                <rect key="frame" x="100" y="11" width="50" height="48"/>
+                                                <color key="tintColor" name="textColor"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="50" id="J5r-tC-Nvm"/>
+                                                    <constraint firstAttribute="height" constant="50" id="Yoe-0V-GxJ"/>
+                                                </constraints>
+                                            </imageView>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Infos" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2j7-BC-1Cy">
+                                                <rect key="frame" x="5" y="65" width="240" height="85"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                <color key="textColor" name="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lJI-3C-4Xd">
+                                                <rect key="frame" x="90" y="160" width="70" height="30"/>
+                                                <color key="backgroundColor" name="pageColor"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="70" id="Z5y-js-cO3"/>
+                                                    <constraint firstAttribute="height" constant="30" id="d9C-qn-Dec"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
+                                                <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <state key="normal" title="Try again"/>
+                                                <connections>
+                                                    <action selector="reloadRequisitionToAPI:" destination="GPp-Om-ffT" eventType="touchUpInside" id="bst-07-CVd"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                        <color key="backgroundColor" name="backgroundColorForDescription"/>
+                                        <constraints>
+                                            <constraint firstItem="lJI-3C-4Xd" firstAttribute="top" secondItem="2j7-BC-1Cy" secondAttribute="bottom" constant="10" id="0H5-uc-jni"/>
+                                            <constraint firstItem="pFF-kc-YPm" firstAttribute="top" secondItem="o82-D9-seF" secondAttribute="top" constant="10" id="2so-sV-x1C"/>
+                                            <constraint firstAttribute="height" constant="200" id="48O-CE-PSY"/>
+                                            <constraint firstAttribute="trailing" secondItem="2j7-BC-1Cy" secondAttribute="trailing" constant="5" id="BfW-Wh-RJq"/>
+                                            <constraint firstAttribute="bottom" secondItem="lJI-3C-4Xd" secondAttribute="bottom" constant="10" id="CzL-tV-W7C"/>
+                                            <constraint firstAttribute="width" constant="250" id="DlP-Kb-Mto"/>
+                                            <constraint firstItem="pFF-kc-YPm" firstAttribute="centerX" secondItem="o82-D9-seF" secondAttribute="centerX" id="NCj-Oz-vkn"/>
+                                            <constraint firstItem="2j7-BC-1Cy" firstAttribute="centerX" secondItem="o82-D9-seF" secondAttribute="centerX" id="VCp-ua-Hcy"/>
+                                            <constraint firstItem="2j7-BC-1Cy" firstAttribute="leading" secondItem="o82-D9-seF" secondAttribute="leading" constant="5" id="XKL-o9-iRz"/>
+                                            <constraint firstItem="lJI-3C-4Xd" firstAttribute="centerX" secondItem="o82-D9-seF" secondAttribute="centerX" id="Ygl-xg-OJa"/>
+                                            <constraint firstItem="2j7-BC-1Cy" firstAttribute="top" secondItem="pFF-kc-YPm" secondAttribute="bottom" constant="5" id="teU-Ws-tOC"/>
+                                        </constraints>
+                                    </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="F9D-ih-dz6">
                                         <rect key="frame" x="0.0" y="788" width="414" height="30"/>
                                         <subviews>
-                                            <pageControl opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="3" translatesAutoresizingMaskIntoConstraints="NO" id="3pB-oU-W0q">
-                                                <rect key="frame" x="145.5" y="1" width="123" height="28"/>
+                                            <pageControl opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="1" translatesAutoresizingMaskIntoConstraints="NO" id="3pB-oU-W0q">
+                                                <rect key="frame" x="165" y="1.5" width="84.5" height="27.5"/>
                                                 <color key="pageIndicatorTintColor" name="pageColor"/>
                                                 <color key="currentPageIndicatorTintColor" name="selectedPageColor"/>
                                             </pageControl>
@@ -95,6 +142,8 @@
                                     <constraint firstItem="T6F-Tb-cAW" firstAttribute="top" secondItem="LBN-Kb-9fj" secondAttribute="top" id="eLe-pQ-jdt"/>
                                     <constraint firstItem="I9v-kL-bir" firstAttribute="leading" secondItem="LBN-Kb-9fj" secondAttribute="leading" id="mLl-qy-Csf"/>
                                     <constraint firstItem="F9D-ih-dz6" firstAttribute="leading" secondItem="LBN-Kb-9fj" secondAttribute="leading" id="n4W-Xg-JIy"/>
+                                    <constraint firstItem="o82-D9-seF" firstAttribute="centerX" secondItem="LBN-Kb-9fj" secondAttribute="centerX" id="ouU-T7-lpb"/>
+                                    <constraint firstItem="o82-D9-seF" firstAttribute="centerY" secondItem="LBN-Kb-9fj" secondAttribute="centerY" id="wk6-oY-gpK"/>
                                     <constraint firstItem="F9D-ih-dz6" firstAttribute="top" secondItem="I9v-kL-bir" secondAttribute="bottom" id="wqe-Ed-aOs"/>
                                 </constraints>
                             </view>
@@ -111,10 +160,13 @@
                     <connections>
                         <outlet property="barForPagination" destination="F9D-ih-dz6" id="Gn3-RY-okq"/>
                         <outlet property="collectionView" destination="I9v-kL-bir" id="oqd-1W-XnC"/>
+                        <outlet property="labelMessageForInfos" destination="2j7-BC-1Cy" id="jqh-7h-NLG"/>
                         <outlet property="leftButton" destination="FNR-18-31N" id="NbN-8q-YAx"/>
                         <outlet property="pageControl" destination="3pB-oU-W0q" id="gT5-ZC-fi4"/>
                         <outlet property="rightButton" destination="h6l-vQ-f5P" id="Owy-yS-nef"/>
                         <outlet property="searchBar" destination="T6F-Tb-cAW" id="gzX-pw-uCV"/>
+                        <outlet property="tryAgainButton" destination="lJI-3C-4Xd" id="h6r-bD-J1V"/>
+                        <outlet property="viewForInformation" destination="o82-D9-seF" id="PZI-23-n7Y"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="45d-SJ-J2t" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -125,14 +177,18 @@
     <resources>
         <image name="chevron.backward" catalog="system" width="96" height="128"/>
         <image name="chevron.right" catalog="system" width="96" height="128"/>
+        <image name="exclamationmark.triangle.fill" catalog="system" width="128" height="112"/>
         <namedColor name="backgroundColor">
             <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="backgroundColorForDescription">
+            <color red="0.4823529411764706" green="0.49803921568627452" blue="0.48627450980392156" alpha="0.25" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="marvelRedColor">
             <color red="0.92549019607843142" green="0.11372549019607843" blue="0.14117647058823529" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="pageColor">
-            <color red="0.92549019607843142" green="0.11372549019607843" blue="0.14117647058823529" alpha="0.5" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.92500001192092896" green="0.11400000005960464" blue="0.14100000262260437" alpha="0.5" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="selectedPageColor">
             <color red="0.92549019607843142" green="0.11372549019607843" blue="0.14117647058823529" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

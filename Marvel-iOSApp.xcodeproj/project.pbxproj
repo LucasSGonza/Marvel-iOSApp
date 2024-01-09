@@ -20,6 +20,7 @@
 		D949C26B2B2B75F000939E64 /* FavoriteScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D949C26A2B2B75F000939E64 /* FavoriteScreenViewController.swift */; };
 		D949C2732B2B75FA00939E64 /* FavoriteScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D949C2722B2B75FA00939E64 /* FavoriteScreen.storyboard */; };
 		D949C2792B2B78FE00939E64 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D949C2782B2B78FE00939E64 /* TabBarController.swift */; };
+		D95961462B4DD66200FEBCC2 /* UrlClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = D95961452B4DD66200FEBCC2 /* UrlClass.swift */; };
 		D967BFB02B2A3F2F0087FFE9 /* Dashboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D967BFAF2B2A3F2F0087FFE9 /* Dashboard.storyboard */; };
 		D967BFBE2B2A42020087FFE9 /* Color.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D967BFBD2B2A42020087FFE9 /* Color.xcassets */; };
 		D967BFC72B2A42600087FFE9 /* APIRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = D967BFC62B2A42600087FFE9 /* APIRequest.swift */; };
@@ -77,6 +78,7 @@
 		D949C26A2B2B75F000939E64 /* FavoriteScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteScreenViewController.swift; sourceTree = "<group>"; };
 		D949C2722B2B75FA00939E64 /* FavoriteScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = FavoriteScreen.storyboard; sourceTree = "<group>"; };
 		D949C2782B2B78FE00939E64 /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
+		D95961452B4DD66200FEBCC2 /* UrlClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UrlClass.swift; sourceTree = "<group>"; };
 		D967BFAF2B2A3F2F0087FFE9 /* Dashboard.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Dashboard.storyboard; sourceTree = "<group>"; };
 		D967BFBD2B2A42020087FFE9 /* Color.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Color.xcassets; sourceTree = "<group>"; };
 		D967BFC62B2A42600087FFE9 /* APIRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIRequest.swift; sourceTree = "<group>"; };
@@ -278,6 +280,7 @@
 			isa = PBXGroup;
 			children = (
 				D967BFC62B2A42600087FFE9 /* APIRequest.swift */,
+				D95961452B4DD66200FEBCC2 /* UrlClass.swift */,
 			);
 			path = API;
 			sourceTree = "<group>";
@@ -592,6 +595,7 @@
 				D949C26B2B2B75F000939E64 /* FavoriteScreenViewController.swift in Sources */,
 				D949C2792B2B78FE00939E64 /* TabBarController.swift in Sources */,
 				D9AC5B322B3B490600AC8F1D /* HelperController.swift in Sources */,
+				D95961462B4DD66200FEBCC2 /* UrlClass.swift in Sources */,
 				D93841E62B2A37E0002370AD /* AppDelegate.swift in Sources */,
 				D9FA0E912B34B33F00700EE9 /* SingleHeroViewController.swift in Sources */,
 				D93841E82B2A37E0002370AD /* SceneDelegate.swift in Sources */,

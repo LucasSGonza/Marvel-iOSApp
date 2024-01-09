@@ -11,6 +11,8 @@ class FavoriteScreenViewController: HelperController {
     
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var viewForInformation: UIView!
+    @IBOutlet weak var labelForInfoMessage: UILabel!
     
     private var heroesArray: [Hero] = []
     private var customHeroesArray: [Hero] = []
@@ -18,18 +20,35 @@ class FavoriteScreenViewController: HelperController {
     override func viewDidLoad() {
         super.viewDidLoad()
         startAllSetupFunctions()
+        viewForInformation.layer.cornerRadius = 10
     }
     
     override func viewDidAppear(_ animated: Bool) {
+        //pega para si somente os heroes da array que estão favoritados
         setupCustomHeroesArrayToDefault()
-        tableView.reloadData()
+        
+        //caso não exista nenhum, exibe a view informando isso
+        if customHeroesArray.isEmpty {
+            hasFavoriteHeroes(false)
+            labelForInfoMessage.text = "You don't have any character favorite!"
+        } else {
+            hasFavoriteHeroes(true)
+            tableView.reloadData()
+        }
+        
     }
     
     private func startAllSetupFunctions() {
-//        setupLoadingAlert()
         setupTableView()
         setupSearchBar()
         setupCustomHeroesArrayToDefault()
+    }
+    
+    private func hasFavoriteHeroes(_ flag: Bool) {
+        print("has any hero favorite? \(flag)")
+        self.tableView.isHidden = !flag
+        self.searchBar.isHidden = !flag
+        self.viewForInformation.isHidden = flag
     }
     
     private func setupTableView() {
