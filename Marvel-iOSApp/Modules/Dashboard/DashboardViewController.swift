@@ -8,6 +8,7 @@
 import UIKit
 import RxSwift
 
+//For the Future...
 // MARK: 1 usage tip, maybe you should create a swipe gesture to change between screens, because right now we need to click in the little arrow to go foward and back to see new heroes
 
 class DashboardViewController: HelperController {
@@ -80,17 +81,8 @@ class DashboardViewController: HelperController {
                 
                 print("Numero de offsets: \(offsetsArray.count)")
                 
-//                let offsetArrayTesteRapidao = [0,100,200]
-                
                 return Observable.from(offsetsArray)
                     .flatMap { offset -> Observable<Data> in
-                        
-                        //essa verificação serve para que quando for a 'ultima' requisição necessária a ser feita, o limit dela ser exatamente igual ao numero de heroes que faltam --> por algum motivo, se eu colocar um limit maior que o necessario, ele não busca todos (?)
-                        let lastHeroesToSearch = result.data.total - offset
-                        if lastHeroesToSearch < 100 {
-                            return self.apiRequest.createObservableForTheAllCharactersRequisition(heroesToSearch: lastHeroesToSearch, heroesToSkip: offset)
-                        }
-                        
                         return self.apiRequest.createObservableForTheAllCharactersRequisition(heroesToSearch: 100, heroesToSkip: offset)
                             .asObservable()
                     }
@@ -102,7 +94,7 @@ class DashboardViewController: HelperController {
                 response.data.results.forEach {
                     //create a obj Hero
                     let imgUrl = ($0.thumbnail.path + "." + $0.thumbnail.extension_).replacingOccurrences(of: "http", with: "https")
-                    let hero: Hero = Hero(id: $0.id, name: $0.name, description: $0.description, img: imgUrl, reqOffset: response.data.offset)
+                    let hero: Hero = Hero(id: $0.id, name: $0.name, description: $0.description, img: imgUrl, reqOffset: response.data.offset, comicsAvailables: $0.comics.available, seriesAvailables: $0.series.available, storiesAvailables: $0.stories.available, eventsAvailables: $0.events.available)
                     self.heroesArray.append(hero)
                 }
             }, onError: { error in
@@ -112,6 +104,7 @@ class DashboardViewController: HelperController {
                     self.showErrorAlert(message: error.localizedDescription)
                     //retira da tela alguns itens
                     self.isScreenShowingTheViewForError(true)
+                    self.updateVisualOfPageControl()
                     self.labelMessageForInfos.text = error.localizedDescription
                 }
             }, onCompleted: {
@@ -246,39 +239,9 @@ extension DashboardViewController: UICollectionViewDelegate, UICollectionViewDat
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let hero = customHeroesArray[indexPath.row]
-        
         let singleHeroVC = UIStoryboard(name: "SingleHero", bundle: nil).instantiateViewController(withIdentifier: "SingleHero") as! SingleHeroViewController
-
-        // verifica se o heroi ja possui uma informação que somente é recebida após essa requisição individual de heroi, ou seja, se ela já foi feita, não precisa fazer novamente
-        if hero.comicsAvailables == nil {
-            
-            showLoadingAlert()
-            
-            apiRequest.createSingleToSingleHeroRequisition(characterId: hero.id)
-                .subscribeOn(ConcurrentDispatchQueueScheduler(qos: .background))
-                .observeOn(MainScheduler.instance)
-                .subscribe(onSuccess: { response in
-                    
-                    hero.comicsAvailables = response.data.results.first?.comics.available
-                    hero.seriesAvailables = response.data.results.first?.series.available
-                    hero.storiesAvailables = response.data.results.first?.stories.available
-                    hero.eventsAvailables = response.data.results.first?.events.available
-                    
-                    singleHeroVC.initView(hero: hero)
-                    self.dismissLoadingAlert() {
-                        self.navigationController?.pushViewController(singleHeroVC, animated: true)
-                    }
-                }, onError: { error in
-                    self.dismissLoadingAlert {
-                        self.showErrorAlert(message: "Unable to open infos because \(error.localizedDescription)")
-                    }
-                })
-                .disposed(by: disposeBag)
-        } else {
-            singleHeroVC.initView(hero: hero)
-            self.navigationController?.pushViewController(singleHeroVC, animated: true)
-        }
-        
+        singleHeroVC.initView(hero: hero)
+        self.navigationController?.pushViewController(singleHeroVC, animated: true)
     }
     
 }

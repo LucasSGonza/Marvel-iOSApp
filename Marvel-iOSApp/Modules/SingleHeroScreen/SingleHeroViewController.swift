@@ -74,31 +74,12 @@ class SingleHeroViewController: UIViewController {
             heroName.text = hero.name
             let urlImg = URL(string: hero.img)
             heroImg.kf.setImage(with: urlImg)
-            heroDescription.text = !hero.description.isEmpty ? hero.description : "No description available"
-            
-            // MARK: 1 you can change this to a ternary, then you don't need to do all this if let
-            
-//            if let heroComicsAvailables = hero.comicsAvailables, let heroSeriesAvailables = hero.seriesAvailables, let heroStoriesAvailables = hero.storiesAvailables, let heroEventsAvailables = hero.eventsAvailables {
-//
-//                heroComics.text = "Comics availables: \(heroComicsAvailables)"
-//                heroSeries.text = "Series availables: \(heroSeriesAvailables)"
-//                heroStories.text = "Stories availables: \(heroStoriesAvailables)"
-//                heroEvents.text = "Events availables: \(heroEventsAvailables)"
-//
-//            } else {
-//                heroComics.text = "Comics availables: Not Available"
-//                heroSeries.text = "Series availables: Not Available"
-//                heroStories.text = "Stories availables: Not Available"
-//                heroEvents.text = "Events availables: Not Available"
-//            }
-            
-            heroComics.text = hero.comicsAvailables != nil ? "Comics availables: \(hero.comicsAvailables!)" : "Comics availables: Not Available"
-            
-            heroSeries.text = hero.seriesAvailables != nil ? "Series availables: \(hero.seriesAvailables!)" : "Series availables: Not Available"
-            
-            heroStories.text = hero.storiesAvailables != nil ? "Stories availables: \(hero.storiesAvailables!)" : "Stories availables: Not Available"
-            
-            heroEvents.text = hero.eventsAvailables != nil ? "Events availables: \(hero.eventsAvailables!)" : "Events availables: Not Available"
+            heroDescription.text = hero.description.isEmpty ? "No description available" : hero.description
+
+            heroComics.text = "Comics availables: \(hero.comicsAvailables)"
+            heroSeries.text = "Series availables: \(hero.seriesAvailables)"
+            heroStories.text = "Stories availables: \(hero.storiesAvailables)"
+            heroEvents.text = "Events availables: \(hero.eventsAvailables)"
             
             favoriteImageView.image = hero.isFavorite ? UIImage(systemName: "bookmark.fill") : UIImage(systemName: "bookmark")
         }
